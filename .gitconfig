@@ -1,0 +1,21 @@
+[qcolor]
+	iu = auto
+[user]
+	name = mars-tran
+[credential]
+	helper = osxkeychain
+[alias]
+    export-diff-head = "!f() { git archive --format=zip HEAD `git diff HEAD~ --diff-filter=ACMRTUXB --name-only` -o `date +"H_archive_%Y%m%d%H%M%S.zip"`; }; f"
+    export-diff-head-ext = "!f() { git archive --format=zip HEAD `git diff $1 --diff-filter=ACMRTUXB --name-only` -o `date +"H_archive_%Y%m%d%H%M%S.zip"`; }; f"
+    export-diff-master = "!f() { git archive --format=zip HEAD `git diff master --diff-filter=ACMRTUXB --name-only` -o `date +"M_archive_%Y%m%d%H%M%S.zip"`; }; f"
+	showpr = "!f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"
+    oneline-log = log --date=iso --pretty=format:'%C(yellow)%h %C(green)%cd %Cblue%<(10,trunc)%aN %m %Creset%s'
+    twoline-log = log --date=iso --pretty=format:'%C(yellow)%h %C(green)%cd %Cblue%<(10,trunc)%aN %m %Creset%n%<(50,trunc)%s'
+    mycleanup = "!f() { git branch --merged | grep -v 'master' | grep -v '*'|xargs git branch -d; }; f"
+    log-diff-master = "!f() { git oneline-log `git branch|grep '*'|gsed -n -e 's/* /master../p'` --reverse; }; f"
+    aom = "!f() { git add `git status -u|grep modified|gsed -n -e 's/modified:\\s*//p'| head -n 1`; }; f"
+    cwn = "!f() { git commit --message=\"modified $(git diff --cached --name-only)\"; }; f"
+    commit-one-modified = "!f() { git aom; git cwn; }; f"
+    slc = "!f() { git show `git log -n 1|head -n 1|cut -d ' ' -f 2`; }; f"
+[core]
+    editor = vim
