@@ -4,6 +4,7 @@
 	name = mars-tran
 [credential]
 	helper = osxkeychain
+	useHttpPath = true
 [alias]
     export-diff-head = "!f() { git archive --format=zip HEAD `git diff HEAD~ --diff-filter=ACMRTUXB --name-only` -o `date +"H_archive_%Y%m%d%H%M%S.zip"`; }; f"
     export-diff-head-ext = "!f() { git archive --format=zip HEAD `git diff $1 --diff-filter=ACMRTUXB --name-only` -o `date +"H_archive_%Y%m%d%H%M%S.zip"`; }; f"
