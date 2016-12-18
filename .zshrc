@@ -94,9 +94,6 @@ alias emacsreset='emacsclient -e "(kill-emacs)" && emacs -daemon'
 #anyenvのパスをシステムパスに追加と初期化
 export PATH="$HOME/.anyenv/bin:$PATH"
 eval "$(anyenv init -)"
-#homebrew用のトークン
-export HOMEBREW_GITHUB_API_TOKEN="3082b9adf5111add8a69ce6faa682900551c6c61"
-
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export LD_LIBRARY_PATH=/usr/local/opt/openssl/lib:$LD_LIBRARY_PATH
 export CPATH=/usr/local/opt/openssl/include:$LD_LIBRARY_PATH
