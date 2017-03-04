@@ -1,5 +1,7 @@
-;; web-mode
-(add-to-list 'auto-mode-alist '("\\.inc$" . php-mode)) ;; - For Drupal
+;;; web-mode --- summary
+;;; web-mode:
+
+(add-to-list 'auto-mode-alist '("\\.inc$" . php-mode)) ;;; - For Drupal
 (add-to-list 'auto-mode-alist '("\\.\\(module\\|test\\|install\\|theme\\)$" . php-mode)) ;; - For Drupal
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -26,7 +28,7 @@
 (setq css-indent-offset 2)
 
 ;; ruby-mode
-(require 'rubocop)
+
 (add-hook 'ruby-mode-hook
           '(lambda()
              (setq flycheck-checker 'ruby-rubocop)
@@ -34,5 +36,7 @@
 (require 'flycheck-color-mode-line)
 (eval-after-load "flycheck"
   '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
+(add-hook 'ruby-mode-hook (lambda () (setq flycheck-disabled-checkers '(ruby-rubylint))))
+
 (setq ruby-insert-encoding-magic-comment nil)
 (provide '01modes)

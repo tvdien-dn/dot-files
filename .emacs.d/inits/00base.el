@@ -77,4 +77,12 @@
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 
+;; Customize keybindings
+(global-set-key "\C-xl" 'goto-line)
+(global-set-key "\C-xp" 'my_rails_fzf)
+(require 'fzf)
+(defun my_rails_fzf()
+  (interactive)
+  (fzf-directory (replace-regexp-in-string "\\(.*jp_projects/[^/]+/\\).*" "\\1" default-directory)))
+
 (provide '00base)
