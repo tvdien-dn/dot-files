@@ -27,7 +27,7 @@
  '(fzf/args "-x --color 16 --margin 1,0")
  '(package-selected-packages
    (quote
-    (anzu fzf yaml-mode color-theme-modern undo-tree markdown-mode php-mode flycheck-color-mode-line flycheck editorconfig rubocop web-mode web-mode-edit-element smart-mode-line xelb el-init company))))
+    (egg hideshow-org anzu fzf yaml-mode color-theme-modern undo-tree markdown-mode php-mode flycheck-color-mode-line flycheck editorconfig rubocop web-mode web-mode-edit-element smart-mode-line xelb el-init company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

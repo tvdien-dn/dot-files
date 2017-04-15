@@ -1,6 +1,7 @@
 ;; auto-completion
 (require 'company)
 (global-company-mode)
+(setq company-dabbrev-downcase nil)
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 2)
 (setq company-selection-wrap-around t)
@@ -58,12 +59,12 @@
                         tabs           ; タブ
                         spaces         ; スペース
                         empty          ; 先頭/末尾の空行
-                        space-mark     ; 表示のマッピング
+                        ;; space-mark     ; 表示のマッピング
                         tab-mark
                         ))
-(setq whitespace-display-mappings
-     '((space-mark ?\u3000 [?\u25a1])))
-(setq whitespace-space-regexp "\\(\u3000+\\)") ;; スペースは全角のみを可視化
+;; (setq whitespace-display-mappings
+;;      '((space-mark ?\u3000 [?\u2015])))
+(setq whitespace-space-regexp "\\(\u3000\\)") ;; スペースは全角のみを可視化
 (setq whitespace-action '(auto-cleanup)) ;; 保存前に自動でクリーンアップ
 (global-whitespace-mode 1)
 
@@ -84,5 +85,4 @@
 (defun my_rails_fzf()
   (interactive)
   (fzf-directory (replace-regexp-in-string "\\(.*jp_projects/[^/]+/\\).*" "\\1" default-directory)))
-
 (provide '00base)
