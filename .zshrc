@@ -117,6 +117,9 @@ alias emacsreset='emacsclient -e "(kill-emacs)" && emacs -daemon'
 # AWS-CLI
 export PATH=~/.local/bin:$PATH
 
+# GIT COLORFUL
+export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+
 ##tmuxinator -> mux
 #alias mux='tmuxinator'
 ##alias to use emacsclient
