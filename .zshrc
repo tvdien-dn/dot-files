@@ -97,8 +97,8 @@ if [ ! "$(docker-machine status dev-machine)" = 'Running' ]; then
     docker images |awk '{if (NR != 1) { gsub("\\.", "", $2); hoge+=('a'); print "docker start " $1 $2} } '|sh
 fi
 ## 色付きlessコマンド
-export LESSOPEN="| src-hilite-lesspipe.sh %s"
-export LESS='-RNC'
+export LESSOPEN="|$HOME/dotfiles/src-hilite-lesspipe.sh %s"
+export LESS='-gj10 -RNC'
 
 ##alias to mysqlversion 5.7.9
 alias mycli57='mycli -uroot -h$(docker-machine ip dev-machine) -P3357 --prompt="\u@\h:\d\n>"'
