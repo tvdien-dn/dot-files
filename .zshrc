@@ -80,17 +80,18 @@ if zplug check "zsh-users/zsh-history-substring-search"; then
     bindkey '^P' history-substring-search-up
     bindkey '^N' history-substring-search-down
 fi
-#
-#削除する前に，確認するようにして，誤動作防止
+
+## 削除する前に，確認するようにして，誤動作防止
 alias rm='rm -i'
-##colorize output
+
+## colorize output
 alias ls='ls -G'
 alias tree='tree -C --dirsfirst'
 alias be='bundle exec'
 ## Show time in right side
 RPROMPT='%D-%*'
 
-# # Docker
+## Docker
 if [ ! "$(docker-machine status dev-machine)" = 'Running' ]; then
     docker-machine start dev-machine && eval $(docker-machine env dev-machine)
     docker images |awk '{if (NR != 1) { gsub("\\.", "", $2); hoge+=('a'); print "docker start " $1 $2} } '|sh
