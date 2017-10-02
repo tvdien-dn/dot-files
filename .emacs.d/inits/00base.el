@@ -45,7 +45,10 @@
 
 ;; Other
 (prefer-coding-system 'utf-8) ;; 文字コード utf-8
-(windmove-default-keybindings) ;; Windownsの移動 Shift-arrow_key
+(require 'framemove)
+(windmove-default-keybindings)
+(setq framemove-hook-into-windmove t)
+;; (windmove-default-keybindings) ;; Windownsの移動 Shift-arrow_key
 (electric-pair-mode t) ;; 自動の閉じ括弧
 (show-paren-mode t) ;; 括弧の強調表示
 (auto-revert-mode) ;; 自動revert-buffer
@@ -82,7 +85,51 @@
 (global-set-key "\C-xl" 'goto-line)
 (global-set-key "\C-xp" 'my_rails_fzf)
 (require 'fzf)
+(setq fzf/args "-x --color 16 --print-query")
 (defun my_rails_fzf()
   (interactive)
-  (fzf-directory (replace-regexp-in-string "\\(.*jp_projects/[^/]+/\\).*" "\\1" default-directory)))
+  (fzf/start (replace-regexp-in-string "\\(.*jp_projects/[^/]+/\\).*" "\\1" default-directory)))
+
+;;SSH editor
+(require 'tramp)
+(setq tramp-default-method "ssh")
+(defalias 'exit-tramp 'tramp-cleanup-all-buffers)
+(define-key global-map (kbd "C-c s") 'anything-tramp)
+(tramp-set-completion-function "ssh"
+                               '((tramp-parse-shosts "~/.ssh/known_hosts")
+                                 (tramp-parse-sconfig "/Users/mars_tran/.ssh/conf.d/cloth.conf")
+                                 (tramp-parse-sconfig "/Users/mars_tran/jp_projects/fg-server/ansible/vagrant_ssh_config")))
+;; anything-trampのメソッドを上書きしている
+(defvar anything-tramp-hosts
+  '((name . "Tramp")
+    (candidates . (lambda () (custom_anything-tramp--candidates)))
+    (type . file)
+    (action . (("Tramp" . anything-tramp-open)))))
+
+(defun custom_anything-tramp--candidates ()
+  "Collect candidates for anything-tramp."
+  (let ((source (split-string
+                 (with-temp-buffer
+                   (insert-file-contents "~/.ssh/config")
+                   (insert-file-contents "~/.ssh/conf.d/cloth.conf")
+                   (insert-file-contents "/Users/mars_tran/jp_projects/fg-server/ansible/vagrant_ssh_config")
+                   (buffer-string))
+                 "\n"))
+        (hosts (list)))
+    (dolist (host source)
+      (when (string-match "[H\\|h]ost +\\(.+?\\)$" host)
+	(setq host (match-string 1 host))
+	(if (string-match "[ \t\n\r]+\\'" host)
+	    (replace-match "" t t host))
+	(if (string-match "\\`[ \t\n\r]+" host)
+	    (replace-match "" t t host))
+        (unless (string= host "*")
+          (push
+	   (concat "/" tramp-default-method ":" host ":/")
+	   hosts)
+	  (push
+	   (concat "/ssh:" host "|sudo:" host ":/")
+	   hosts))))
+    (push "/sudo:root@localhost:/" hosts)
+    (reverse hosts)))
 (provide '00base)
