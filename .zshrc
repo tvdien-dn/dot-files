@@ -10,6 +10,8 @@ zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle :compinstall filename '/Users/mars_tran/.zshrc'
 
+# SSHのホスト補完データ
+_cache_hosts=(`ruby -ne 'if /^Host\s+(.+)$/; print $1.strip, "\n"; end' ~/.ssh/conf.d/*.conf`)
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
@@ -40,8 +42,10 @@ fi
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-autosuggestions"
 zplug "mollifier/anyframe"
 zplug "b4b4r07/enhancd", use:init.sh
+zplug "b4b4r07/emoji-cli"
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "themes/steeef", from:oh-my-zsh #themes
