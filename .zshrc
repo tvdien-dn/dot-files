@@ -71,14 +71,6 @@ function update_git_alias() {
 }
 add-zsh-hook precmd update_git_alias
 
-## Crtl-Rで履歴検索
-function peco-history-selection() {
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
-    CURSOR=$#BUFFER
-    zle reset-prompt
-}
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
 if zplug check "zsh-users/zsh-history-substring-search"; then
     bindkey '^P' history-substring-search-up
     bindkey '^N' history-substring-search-down
@@ -91,6 +83,7 @@ alias rm='rm -i'
 alias ls='ls -G'
 alias tree='tree -C --dirsfirst'
 alias be='bundle exec'
+
 ## Show time in right side
 RPROMPT='%D-%*'
 
