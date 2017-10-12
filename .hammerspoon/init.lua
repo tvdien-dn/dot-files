@@ -465,3 +465,10 @@ function hs.screen.minFrame(refScreen, isFullscreen)
     h = hs.screen.minHeight(isFullscreen)
   }
 end
+
+-------------------------------------------------------------------------------
+-- Loading Spoons
+-------------------------------------------------------------------------------
+hs.fnutils.each({
+  { name = 'FnMate'}
+}, function(spoon) hs.loadSpoon(spoon.name) end)
