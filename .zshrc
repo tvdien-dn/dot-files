@@ -1,6 +1,6 @@
 # the following lines were added by compinstall
 
-zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate _options
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' max-errors 2
@@ -8,11 +8,16 @@ zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
+zstyle ':completion:*:manuals' separate-sections true
+
 zstyle :compinstall filename '/Users/mars_tran/.zshrc'
-# SSHのホスト補完データ
-_cache_hosts=(`ruby -ne 'if /^Host\s+(.+)$/; print $1.strip, "\n"; end' ~/.ssh/conf.d/*.conf`)
+
 autoload -Uz compinit
 compinit
+
+# SSHのホスト補完データ
+# _cache_hosts=(`ruby -ne 'if /^Host\s+(.+)$/; print $1.strip, "\n"; end' ~/.ssh/conf.d/*.conf`)
+_cache_hosts=(`grep -E '^Host ' ~/.ssh/config ~/.ssh/conf.d/*.conf|cut -d ' ' -f 2`)
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zsh_history
@@ -84,6 +89,7 @@ alias ls='ls -G'
 alias tree='tree -C --dirsfirst'
 alias be='bundle exec'
 
+
 ## Show time in right side
 RPROMPT='%D-%*'
 
@@ -118,3 +124,16 @@ export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
 
 # direnv
 eval "$(direnv hook zsh)"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+# Turn on AWS CLI auto-completion
+if type 'aws_completer' > /dev/null; then
+  source $(dirname `which aws_completer`)/aws_zsh_completer.sh
+  # source /usr/local/bin/aws_zsh_completer.sh
+fi
+
+# fix typo
+alias emascreset='emacsreset'

@@ -67,9 +67,19 @@
   (sql-set-product "mysql"))
 (add-hook 'sql-mode-hook 'sql-mode-hooks)
 
+;; shell script mode indentation
+(setq sh-basic-offset 2)
+(setq sh-indentation 2)
+(setq sh-indent-for-case-label 0)
+(setq sh-indent-for-case-alt '+)
+
 ;; markdown-preview mode
 ;; (custom-set-variables '(markdown-command "/usr/local/bin/markdown"))
 
 ;;(add-to-list 'markdown-preview-stylesheets "https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css")
 ;; (setq markdown-preview-stylesheets (list "https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css"))
+;; Google translate smooth setting
+(setq google-translate-translation-directions-alist
+      '(("en" . "ja") ("ja" . "en") ("ja" . "vi") ("en" . "vi")))
+
 (provide '01modes)

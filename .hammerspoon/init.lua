@@ -39,6 +39,8 @@
 --    end
 --  },
 
+-- Hotkey information
+local hotkeyInformation = {}
 
 -- App vars
 local browser   = hs.appfinder.appFromName("Google Chrome")
@@ -65,7 +67,6 @@ ext = {
 
 local mash      = {"cmd", "alt", "ctrl"}
 local mash_apps = {"cmd", "alt"}
-
 
 -- find applicaiton names hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:title()) end)
 -- inspired on https://github.com/rtoshiro/hammerspoon-init/blob/master/init.lua
@@ -103,17 +104,21 @@ local layout_comms = {
 -- positioning windows on screen
 -- https://github.com/exark/dotfiles/blob/master/.hammerspoon/init.lua
 -------------------------------------------------------------------------------
-hs.hotkey.bind(mash,"Z", function() push(0,0,0.3,1) end)             -- left side
-hs.hotkey.bind(mash,"X", function() push(0,0,(1/3*2),1) end)         -- left two third
-hs.hotkey.bind(mash,"M", function() push((1/3*2),0,(1/3),1) end)     -- right
-hs.hotkey.bind(mash,"N", function() push((1/3),0,(1/3*2),1) end)     -- right two third
-hs.hotkey.bind(mash,"V", function() push((1/3),0,(1/3),1) end)       -- middle
-hs.hotkey.bind(mash,"space", function() push(0,0,1,1) end)           -- full screen
-hs.hotkey.bind(mash, "f", function() push(0.05,0.05,0.9,0.9) end)
+hs.hotkey.alertDuration = 0 -- Disable showing message when hotkey is pressed
+
+hs.hotkey.bind(mash, "Z", 'move window to left side(1/3)',  function() push(0,0,(1/3),1) end)           -- left side
+hs.hotkey.bind(mash, "X", 'move window to left side(2/3)',  function() push(0,0,(1/3*2),1) end)         -- left two third
+hs.hotkey.bind(mash, "M", 'move window to right side(1/3)', function() push((1/3*2),0,(1/3),1) end)     -- right
+hs.hotkey.bind(mash, "N", 'move window to right side(2/3)', function() push((1/3),0,(1/3*2),1) end)     -- right two third
+hs.hotkey.bind(mash, "V", 'move window to midle',           function() push((1/3),0,(1/3),1) end)       -- middle
+hs.hotkey.bind(mash, "space", "full screen",                function() push(0,0,1,1) end)               -- full screen
+hs.hotkey.bind(mash, "f", "move window to center",          function() push(0.05,0.05,0.9,0.9) end)
+hs.hotkey.bind(mash, "C", 'move window to half left',  function() push(0,0,0.5,1) end)                  -- half left
+hs.hotkey.bind(mash, "B", 'move window to half right',  function() push((1/2),0,0.5,1) end)             -- half right
 
 -- hs.hotkey.bind(mash, "8", function() applyLayouts(layout_code) end)
 -- hs.hotkey.bind(mash, "pad2", function() applyLayouts(layout_comms) end)
-
+hs.hotkey.showHotkeys(mash, "/")
 hs.hotkey.bind(mash, "d", function()
   --for win in hs.window.allWindows() do
   for _, win in ipairs(hs.window.allWindows()) do
@@ -134,6 +139,10 @@ hs.hotkey.bind(mash, "R", function()
 end)
 hs.alert.show("Config loaded")
 
+hs.hotkey.bind(mash, "E", function()
+                  print('config reloaded')
+                  myHoge()
+end)
 -- launch and focus applications with below shortkey
 hs.fnutils.each({
   { key = "c", app = "Google Chrome" },
@@ -142,19 +151,20 @@ hs.fnutils.each({
   { key = "k", app = "KeePassX" },
   { key = "h", app = 'Hammerspoon' },
 }, function(object)
-    hs.hotkey.bind(mash_apps, object.key, function() ext.app.forceLaunchOrFocus(object.app) end)
+    hs.hotkey.bind(mash_apps, object.key, object.app, function() ext.app.forceLaunchOrFocus(object.app) end)
 end)
 
 
 -------------------------------------------------------------------------------
 -- move current window to next screen
 -------------------------------------------------------------------------------
-hs.hotkey.bind(mash, ']', function()
-  if (#hs.screen.allScreens() > 1) then
-    hs.window.focusedWindow():moveToScreen(hs.window.focusedWindow():screen():next())
-    push(0.05,0.05,0.9,0.9)
-  end
-end)
+hs.hotkey.bind(mash, ']', nil,
+               function()
+                  if (#hs.screen.allScreens() > 1) then
+                     hs.window.focusedWindow():moveToScreen(hs.window.focusedWindow():screen():next())
+                     push(0.05,0.05,0.9,0.9)
+                  end
+               end)
 
 -- functions below
 
@@ -283,6 +293,7 @@ end
 --------------------------------------------------------------------------------
 -- METHODS - BECAREFUL :)
 --------------------------------------------------------------------------------
+
 function applyLayout(layouts, app)
   if (app) then
     local appName = app:title()
@@ -470,5 +481,5 @@ end
 -- Loading Spoons
 -------------------------------------------------------------------------------
 hs.fnutils.each({
-  { name = 'FnMate'}
-}, function(spoon) hs.loadSpoon(spoon.name) end)
+      { name = 'FnMate'}
+                }, function(spoon) hs.loadSpoon(spoon.name) end)
