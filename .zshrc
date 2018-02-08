@@ -91,7 +91,7 @@ alias be='bundle exec'
 
 
 ## Show time in right side
-RPROMPT='%D-%*'
+# RPROMPT='%D-%*'
 
 ## Docker
 if [ ! "$(docker-machine status dev-machine)" = 'Running' ]; then
@@ -110,6 +110,9 @@ alias mycli56='mycli -u root -h$(docker-machine ip dev-machine) -P3356 --prompt=
 export PATH="$HOME/dotfiles/.anyenv/bin:$PATH"
 export ANYENV_ROOT="$HOME/dotfiles/.anyenv"
 eval "$(anyenv init -)"
+
+# load tmuxinator completion
+source /Users/mars_tran/dotfiles/.anyenv/envs/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/tmuxinator-0.10.1/completion/tmuxinator.zsh
 
 #alias to use emacsclient
 alias e='myeditor $@'
