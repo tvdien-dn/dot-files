@@ -113,8 +113,8 @@ hs.hotkey.bind(mash, "N", 'move window to right side(2/3)', function() push((1/3
 hs.hotkey.bind(mash, "V", 'move window to midle',           function() push((1/3),0,(1/3),1) end)       -- middle
 hs.hotkey.bind(mash, "space", "full screen",                function() push(0,0,1,1) end)               -- full screen
 hs.hotkey.bind(mash, "f", "move window to center",          function() push(0.05,0.05,0.9,0.9) end)
-hs.hotkey.bind(mash, "C", 'move window to half left',  function() push(0,0,0.5,1) end)                  -- half left
-hs.hotkey.bind(mash, "B", 'move window to half right',  function() push((1/2),0,0.5,1) end)             -- half right
+hs.hotkey.bind(mash, "C", 'move window to half left',       function() push(0,0,0.5,1) end)             -- half left
+hs.hotkey.bind(mash, "B", 'move window to half right',      function() push((1/2),0,0.5,1) end)         -- half right
 
 -- hs.hotkey.bind(mash, "8", function() applyLayouts(layout_code) end)
 -- hs.hotkey.bind(mash, "pad2", function() applyLayouts(layout_comms) end)
@@ -145,7 +145,7 @@ hs.hotkey.bind(mash, "E", function()
 end)
 -- launch and focus applications with below shortkey
 hs.fnutils.each({
-  { key = "c", app = "Google Chrome" },
+  { key = "g", app = "Google Chrome" },
   { key = "s", app = "slack" },
   { key = "t", app = "iTerm2" },
   { key = "k", app = "KeePassX" },
