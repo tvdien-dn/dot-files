@@ -3,4 +3,5 @@
 /.tmux/plugins/
 /.anyenv/
 .emacs.d/elpa/
+.emacs.d/tramp
 .pry_history
