@@ -1,4 +1,6 @@
 # the following lines were added by compinstall
+fpath=(/Applications/Docker.app/Contents/Resources/etc/ $fpath)
+fpath=(~/.zsh/completion $fpath)
 
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate _options
 zstyle ':completion:*' list-colors ''
@@ -9,15 +11,17 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:manuals' separate-sections true
+zstyle :compinstall filename '/Users/mars_tran/dotfiles/.zshrc'
 
-zstyle :compinstall filename '/Users/mars_tran/.zshrc'
+autoload -Uz compinit && compinit -i
 
-autoload -Uz compinit
-compinit
+# zstyle ':completion:*' menu select
+# zstyle ':completion:*:cd:*' ignore-parents parent pwd
+# zstyle ':completion:*:descriptions' format '%BCompleting%b %U%d%u'
 
 # SSHのホスト補完データ
 # _cache_hosts=(`ruby -ne 'if /^Host\s+(.+)$/; print $1.strip, "\n"; end' ~/.ssh/conf.d/*.conf`)
-_cache_hosts=(`grep -E '^Host ' ~/.ssh/config ~/.ssh/conf.d/*.conf|cut -d ' ' -f 2`)
+# _cache_hosts=(`grep -E '^Host ' ~/.ssh/config ~/.ssh/conf.d/*.conf|cut -d ' ' -f 2`)
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.zsh_history
@@ -27,16 +31,20 @@ SAVEHIST=1000000
 setopt append_history
 setopt extended_history
 setopt share_history
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt auto_cd
+setopt auto_pushd
+# =の後にパス補完
+setopt magic_equal_subst
+
+## 日本語ファイル名を表示可能にする
+setopt print_eight_bit
 
 ## zplug setting
 source ~/.zplug/init.zsh
 zplug "zsh-users/zsh-syntax-highlighting"
 
-##setopt hist_ignore_dups
-#setopt magic_equal_subst
-setopt auto_cd
-setopt auto_pushd
-#setopt print_eight_bit
 # rootは履歴を残さないようにする
 if [ $UID = 0 ]; then
     unset HISTFILE
@@ -49,12 +57,12 @@ zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "mollifier/anyframe"
 zplug "b4b4r07/enhancd", use:init.sh
-zplug "b4b4r07/emoji-cli"
+# zplug "b4b4r07/emoji-cli"
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "themes/steeef", from:oh-my-zsh #themes
 zplug "peco/peco", as:command, from:gh-r
-zplug "plugins/git", from:oh-my-zsh, as:plugin #error compdef
+zplug "plugins/git", from:oh-my-zsh, as:plugin
 zplug "plugins/chucknorris", from:oh-my-zsh, as:plugin
 zplug "plugins/common-aliases", from:oh-my-zsh
 
@@ -93,23 +101,30 @@ alias be='bundle exec'
 ## Show time in right side
 # RPROMPT='%D-%*'
 
-## Docker
-if [ ! "$(docker-machine status dev-machine)" = 'Running' ]; then
-    docker-machine start dev-machine && eval $(docker-machine env dev-machine)
-    docker images |awk '{if (NR != 1) { gsub("\\.", "", $2); hoge+=('a'); print "docker start " $1 $2} } '|sh
-fi
 ## 色付きlessコマンド
 export LESSOPEN="|$HOME/dotfiles/src-hilite-lesspipe.sh %s"
 export LESS='-gj10 -RNC'
 
 ##alias to mysqlversion 5.7.9
-alias mycli57='mycli -uroot -h$(docker-machine ip dev-machine) -P3357 --prompt="\u@\h:\d\n>"'
-alias mycli56='mycli -u root -h$(docker-machine ip dev-machine) -P3356 --prompt="\u@\h:\d\n>"'
+alias mycli57='mycli -uroot -P3357 --prompt="\u@\h:\d\n>"'
+alias mycli56='mycli -u root -P3356 --prompt="\u@\h:\d\n>"'
 
-#Anyenv 設定
-export PATH="$HOME/dotfiles/.anyenv/bin:$PATH"
-export ANYENV_ROOT="$HOME/dotfiles/.anyenv"
+# Prevent duplicate defined when use tmux
+if [ -z $TMUX ]
+then
+    #Anyenv 設定
+    export PATH="$HOME/dotfiles/.anyenv/bin:$PATH"
+    export ANYENV_ROOT="$HOME/dotfiles/.anyenv"
+    # AWS-CLI
+    export PATH=~/.local/bin:$PATH
+    # GIT COLORFUL
+    export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
+    # Brew, Imagemagick
+    export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+    export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+fi
 eval "$(anyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # load tmuxinator completion
 source /Users/mars_tran/dotfiles/.anyenv/envs/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/tmuxinator-0.10.1/completion/tmuxinator.zsh
@@ -119,24 +134,14 @@ alias e='myeditor $@'
 #alias quick reset emacs server
 alias emacsreset='emacsclient -e "(kill-emacs)" && emacs -daemon'
 
-# AWS-CLI
-export PATH=~/.local/bin:$PATH
-
-# GIT COLORFUL
-export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
-
 # direnv
 eval "$(direnv hook zsh)"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
 
 # Turn on AWS CLI auto-completion
 if type 'aws_completer' > /dev/null; then
   source $(dirname `which aws_completer`)/aws_zsh_completer.sh
   # source /usr/local/bin/aws_zsh_completer.sh
 fi
-
-# fix typo
-alias emascreset='emacsreset'
+export PATH="/Users/mars_tran/Library/Android/sdk/platform-tools:$PATH"
