@@ -14,8 +14,12 @@
 (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . (lambda ()
                                                    (web-mode)
                                                    (js-flycheck-settings))))
-
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 ;;;; Set indentation
+'(json-reformat:indent-width 2)
+(add-hook 'json-mode-hook
+          '(lambda ()
+             (setq js-indent-level 2)))
 (add-hook 'web-mode-hook
           '(lambda ()
              (setq web-mode-attr-indent-offset 2)
@@ -31,7 +35,10 @@
              (setq web-mode-auto-close-style 1)
              (setq web-mode-tag-auto-close-style t)
              (setq web-mode-enable-auto-pairing t) ;; 自動組み込みタグを閉じる
-          ))
+             )
+          )
+
+(setq js-indent-level 2)
 
 ;; SQL indentation
 (eval-after-load "sql"

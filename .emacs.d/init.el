@@ -31,7 +31,7 @@
  '(markdown-command "/usr/local/bin/markdown")
  '(package-selected-packages
    (quote
-    (ac-js2 js2-mode js2-refactor adoc-mode format-sql plantuml-mode flymake-lua lua-mode fzf markdown-preview-mode google-translate ag jinja2-mode mmm-jinja2 highlight-indent-guides sql-indent framemove anything-tramp markdown-preview-eww flymd vue-mode egg hideshow-org anzu yaml-mode color-theme-modern undo-tree markdown-mode php-mode flycheck-color-mode-line flycheck editorconfig rubocop web-mode web-mode-edit-element smart-mode-line xelb el-init company))))
+    (docker-compose-mode dockerfile-mode magit json-mode ac-js2 js2-mode js2-refactor adoc-mode format-sql plantuml-mode flymake-lua lua-mode fzf markdown-preview-mode google-translate ag jinja2-mode mmm-jinja2 highlight-indent-guides sql-indent framemove anything-tramp markdown-preview-eww flymd vue-mode egg hideshow-org anzu yaml-mode color-theme-modern undo-tree markdown-mode php-mode flycheck-color-mode-line flycheck editorconfig rubocop web-mode web-mode-edit-element smart-mode-line xelb el-init company))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -45,5 +45,6 @@
  '(font-lock-type-face ((t (:foreground "PaleGreen3" :weight bold)))))
 (set-face-background 'default "black")
 
+(put 'downcase-region 'disabled nil)
 (provide 'init)
 ;;; init ends here
