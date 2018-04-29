@@ -41,27 +41,28 @@ setopt magic_equal_subst
 ## 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
-## zplug setting
-source ~/.zplug/init.zsh
-zplug "zsh-users/zsh-syntax-highlighting"
-
 # rootは履歴を残さないようにする
 if [ $UID = 0 ]; then
     unset HISTFILE
     SAVEHIST=0
 fi
 
+## zplug setting https://github.com/zplug/zplug
+source ~/.zplug/init.zsh
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
-zplug "mollifier/anyframe"
+# zplug "mollifier/anyframe"
 zplug "b4b4r07/enhancd", use:init.sh
+export ENHANCD_FILTER=fzf
 # zplug "b4b4r07/emoji-cli"
+# export EMOJI_CLI_KEYBIND=
+# export EMOJI_CLI_FILTER=fzf
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "themes/steeef", from:oh-my-zsh #themes
-zplug "peco/peco", as:command, from:gh-r
+# zplug "peco/peco", as:command, from:gh-r
 zplug "plugins/git", from:oh-my-zsh, as:plugin
 zplug "plugins/chucknorris", from:oh-my-zsh, as:plugin
 zplug "plugins/common-aliases", from:oh-my-zsh
