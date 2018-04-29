@@ -79,12 +79,6 @@ fi
 
 zplug load
 
-function update_git_alias() {
-    #git_alias=`alias|grep git|awk -F = '{print $1}'`
-    PR_GIT_UPDATE=1
-}
-add-zsh-hook precmd update_git_alias
-
 if zplug check "zsh-users/zsh-history-substring-search"; then
     bindkey '^P' history-substring-search-up
     bindkey '^N' history-substring-search-down
@@ -97,10 +91,6 @@ alias rm='rm -i'
 alias ls='ls -G'
 alias tree='tree -C --dirsfirst'
 alias be='bundle exec'
-
-
-## Show time in right side
-# RPROMPT='%D-%*'
 
 ## 色付きlessコマンド
 export LESSOPEN="|$HOME/dotfiles/src-hilite-lesspipe.sh %s"
@@ -145,4 +135,9 @@ if type 'aws_completer' > /dev/null; then
   source $(dirname `which aws_completer`)/aws_zsh_completer.sh
   # source /usr/local/bin/aws_zsh_completer.sh
 fi
-export PATH="/Users/mars_tran/Library/Android/sdk/platform-tools:$PATH"
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+
+# Override prompt settings in steeef's theme
+PROMPT=$'
+%{$purple%}%n${PR_RST}@%{$orange%}%m${PR_RST}:%{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
+%D %T >> '

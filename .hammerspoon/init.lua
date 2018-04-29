@@ -105,6 +105,12 @@ local layout_comms = {
 -- https://github.com/exark/dotfiles/blob/master/.hammerspoon/init.lua
 -------------------------------------------------------------------------------
 hs.hotkey.alertDuration = 0 -- Disable showing message when hotkey is pressed
+hs.hotkey.bind(mash, "1", 'move window to left side(1/4)',  function() push(0,0,(1/4),1) end)
+hs.hotkey.bind(mash, "2", 'move window to left side(2/4)',  function() push(0,0,(2/4),1) end)
+hs.hotkey.bind(mash, "3", 'move window to left side(3/4)',  function() push(0,0,(3/4),1) end)
+hs.hotkey.bind(mash, "4", 'move window to right side(3/4)', function() push(1/4,0,(3/4),1) end)
+hs.hotkey.bind(mash, "5", 'move window to right side(2/4)', function() push(0.5,0,0.5,1) end)
+hs.hotkey.bind(mash, "6", 'move window to right side(1/4)', function() push((1/4*3),0,(1/4),1) end)
 
 hs.hotkey.bind(mash, "Z", 'move window to left side(1/3)',  function() push(0,0,(1/3),1) end)           -- left side
 hs.hotkey.bind(mash, "X", 'move window to left side(2/3)',  function() push(0,0,(1/3*2),1) end)         -- left two third
@@ -145,7 +151,7 @@ hs.hotkey.bind(mash, "E", function()
 end)
 -- launch and focus applications with below shortkey
 hs.fnutils.each({
-  { key = "g", app = "Google Chrome" },
+  -- { key = "g", app = "Google Chrome" },
   { key = "s", app = "slack" },
   { key = "t", app = "iTerm2" },
   { key = "k", app = "KeePassX" },
