@@ -60,19 +60,6 @@
             )
           )
 
-;; Customizations
-;; (setq web-mode-markup-indent-offset 2)
-;; (setq web-mode-css-indent-offset 2)
-;; (setq web-mode-code-indent-offset 2)
-
-;; (setq web-mode-disable-autocompletion t)
-;; (local-set-key (kbd "RET") 'newline-and-indent)
-;; ;; css-mode
-;; (setq css-indent-offset 2)
-;; ;; js-mode
-;; (setq js-indent-level 2)
-
-
 ;; php-mode
 (add-hook 'php-mode-hook
           (lambda ()
@@ -110,14 +97,6 @@
              (setq ruby-insert-encoding-magic-comment nil)
              (flycheck-mode 1)))
 
-;; markdown-preview mode
-;; (custom-set-variables '(markdown-command "/usr/local/bin/markdown"))
-
-;;(add-to-list 'markdown-preview-stylesheets "https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css")
-;; (setq markdown-preview-stylesheets (list "https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css"))
-
-;; Google translate smooth setting
-(setq google-translate-translation-directions-alist
-      '(("en" . "ja") ("ja" . "en") ("ja" . "vi") ("en" . "vi")))
-
 (provide '01modes)
+
+;;; 01modes.el ends here

@@ -1,3 +1,8 @@
+;;; 09my_functions --- customized funtions
+;;; Commentary:
+
+;;; Code:
+
 (require 'align)
 (add-to-list 'align-rules-list
             '(php-assignment
@@ -44,40 +49,20 @@
                (regexp . "\\(\\s-*\\)# => [^#\t\n]")
                (repeat . nil)
                (modes  . '(ruby-mode))))
-;; 文字列を"で囲む
-(global-set-key "\C-x\"" 'surround)
-(defun surround (begin end string)
-  (interactive  "r\nsString:")
-  (when (string= string "{")
-    (setq open string)
-    (setq close "}"))
-  (when (string= string "(")
-    (setq open string)
-    (setq close ")"))
-  (when (string= string "\"")
-    (setq open string)
-    (setq close "\""))
-  (when (string= string "\'")
-    (setq open string)
-    (setq close "\'"))
-  (save-excursion
-    (goto-char end)
-    (insert close)
-    (goto-char begin)
-    (insert open)))
 
 ;; copy to clipboard on OS X
 ;; REF: https://gist.github.com/the-kenny/267162
 (defun copy-from-osx ()
- (shell-command-to-string "pbpaste"))
+  (shell-command-to-string "pbpaste"))
 
 (defun paste-to-osx (text &optional push)
- (let ((process-connection-type nil))
-     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
-       (process-send-string proc text)
-       (process-send-eof proc))))
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
 
 (setq interprogram-cut-function 'paste-to-osx)
 (setq interprogram-paste-function 'copy-from-osx)
 
 (provide '09my_function)
+;;; 09my_function.el ends here

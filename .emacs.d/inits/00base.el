@@ -83,10 +83,10 @@
 
 ;; Customize keybindings
 (global-set-key "\C-xl" 'goto-line)
-(global-set-key "\C-xp" 'my_rails_fzf)
 (require 'fzf)
 (setq fzf/args "-x --color 16 --print-query")
-(defun my_rails_fzf()
+(global-set-key "\C-xp" 'fzf-jp-projects)
+(defun fzf-jp-projects()
   (interactive)
   (fzf/start (replace-regexp-in-string "\\(.*jp_projects/[^/]+/\\).*" "\\1" default-directory)))
 
@@ -119,18 +119,18 @@
         (hosts (list)))
     (dolist (host source)
       (when (string-match "[H\\|h]ost +\\(.+?\\)$" host)
-	(setq host (match-string 1 host))
-	(if (string-match "[ \t\n\r]+\\'" host)
-	    (replace-match "" t t host))
-	(if (string-match "\\`[ \t\n\r]+" host)
-	    (replace-match "" t t host))
+        (setq host (match-string 1 host))
+        (if (string-match "[ \t\n\r]+\\'" host)
+            (replace-match "" t t host))
+        (if (string-match "\\`[ \t\n\r]+" host)
+            (replace-match "" t t host))
         (unless (string= host "*")
           (push
-	   (concat "/" tramp-default-method ":" host ":/")
-	   hosts)
-	  (push
-	   (concat "/ssh:" host "|sudo:" host ":/")
-	   hosts))))
+           (concat "/" tramp-default-method ":" host ":/")
+           hosts)
+          (push
+           (concat "/ssh:" host "|sudo:" host ":/")
+           hosts))))
     (push "/sudo:root@localhost:/" hosts)
     (reverse hosts)))
 

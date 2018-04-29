@@ -1,9 +1,8 @@
 ;;; init: --- common settings
 ;;; Commentary:
 
-(require 'package)
-
 ;;;; Code:
+(require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
@@ -11,9 +10,6 @@
 (fset 'package-desc-version 'package--ac-desc-version)
 (package-initialize)
 
-(require 'el-init)
-(el-init-load "~/.emacs.d/inits")
-(load-theme 'desert t)
 ;; Emacs server
 (require 'server)
 (unless (server-running-p)
@@ -31,7 +27,11 @@
  '(markdown-command "/usr/local/bin/markdown")
  '(package-selected-packages
    (quote
-    (docker-compose-mode dockerfile-mode magit json-mode ac-js2 js2-mode js2-refactor adoc-mode format-sql plantuml-mode flymake-lua lua-mode fzf markdown-preview-mode google-translate ag jinja2-mode mmm-jinja2 highlight-indent-guides sql-indent framemove anything-tramp markdown-preview-eww flymd vue-mode egg hideshow-org anzu yaml-mode color-theme-modern undo-tree markdown-mode php-mode flycheck-color-mode-line flycheck editorconfig rubocop web-mode web-mode-edit-element smart-mode-line xelb el-init company))))
+    (docker-compose-mode dockerfile-mode magit json-mode ac-js2 js2-mode js2-refactor adoc-mode format-sql plantuml-mode flymake-lua lua-mode fzf markdown-preview-mode google-translate ag jinja2-mode mmm-jinja2 highlight-indent-guides sql-indent framemove anything-tramp markdown-preview-eww flymd vue-mode egg hideshow-org anzu yaml-mode color-theme-modern undo-tree markdown-mode php-mode flycheck-color-mode-line flycheck editorconfig web-mode web-mode-edit-element smart-mode-line xelb el-init company)))
+ '(safe-local-variable-values
+   (quote
+    ((eval flycheck-disable-checker
+           (quote ruby-rubocop))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -46,5 +46,10 @@
 (set-face-background 'default "black")
 
 (put 'downcase-region 'disabled nil)
+(require 'el-init)
+(el-init-load "~/.emacs.d/inits")
+(load-theme 'desert t)
+(put 'narrow-to-region 'disabled nil)
+
 (provide 'init)
 ;;; init ends here
