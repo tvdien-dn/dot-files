@@ -42,6 +42,7 @@
 ;; (setq sml/rm-blacklist '("Helm-Gtags"))
 (setq sml/no-confirm-load-theme t)
 (sml/setup)
+(add-to-list 'sml/replacer-regexp-list '("^~/jp_projects/" "HOME") t)
 
 ;; Other
 (prefer-coding-system 'utf-8) ;; 文字コード utf-8
