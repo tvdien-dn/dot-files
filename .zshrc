@@ -123,7 +123,7 @@ source /Users/mars_tran/dotfiles/.anyenv/envs/rbenv/versions/2.4.1/lib/ruby/gems
 #alias to use emacsclient
 alias e='myeditor $@'
 #alias quick reset emacs server
-alias emacsreset='emacsclient -e "(kill-emacs)" && emacs -daemon'
+alias emacsreset='emacsclient -e "(kill-emacs)" && emacs --daemon'
 
 # direnv
 eval "$(direnv hook zsh)"
@@ -136,8 +136,4 @@ if type 'aws_completer' > /dev/null; then
   # source /usr/local/bin/aws_zsh_completer.sh
 fi
 export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-
-# Override prompt settings in steeef's theme
-PROMPT=$'
-%{$purple%}%n${PR_RST}@%{$orange%}%m${PR_RST}:%{$limegreen%}%~${PR_RST} $vcs_info_msg_0_$(virtualenv_info)
-%D %T >> '
+source $HOME/dotfiles/customized.zsh-theme
