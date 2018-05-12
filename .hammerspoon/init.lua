@@ -1,61 +1,6 @@
--- local application  = require "mjolnir.application"
--- local hotkey       = require "mjolnir.hotkey"
--- local window       = require "mjolnir.window"
--- local fnutils      = require "mjolnir.fnutils"
--- local grid         = require "mjolnir.sd.grid"
--- install stuff: luarocks install mjolnir.fnutils
--- info http://thume.ca/howto/2014/12/02/using-mjolnir-an-extensible-osx-window-manager/
---      https://groups.google.com/forum/#!searchin/hammerspoon/all$20apps|sort:relevance/hammerspoon/VabaeIBw9qw/Jqh_zfR6AwAJ
---      https://groups.google.com/forum/#!searchin/hammerspoon/all$20apps|sort:relevance/hammerspoon/BffebXiLQRE/-uuYbfTBCQAJ
-
-
--------------------------------------------------------------------------------
--- testing/non-functioning/undocumented stuff
--------------------------------------------------------------------------------
---launches two apps in sequence
---hs.hotkey.bind({ 'cmd', 'ctrl' }, 'b', function() ext.app.smartLaunchOrFocus({ 'Safari', 'Google Chrome' }) end)
-
--------------------------------------------------------------------------------
--- minimise all windows
--- does not work -> https://groups.google.com/forum/#!topic/hammerspoon/GWPPyQrV_k4
--------------------------------------------------------------------------------
---hs.hotkey.bind(mash, "d", function()
--- win = hs.window.allWindows()
--- for w,_,_ in win do
---    w:minimize()
--- end
---end)
-
--- LAYOUTS WITH MULTISCREEN SUPPORT
--- {
---    name = {"Evernote", "Preview", "Slack"},
---    func = function(index, win)
---      if (#hs.screen.allScreens() > 1) then
---          pushWindow(win,0,0,0.3,1)
---          win:moveToScreen(hs.screen.get(second_monitor))
---        else
---          pushWindow(win,0,0,0.3,1)
---      end
---    end
---  },
-
--- Hotkey information
-local hotkeyInformation = {}
-
--- App vars
-local browser   = hs.appfinder.appFromName("Google Chrome")
-local iterm     = hs.appfinder.appFromName("iTerm2")
-local finder    = hs.appfinder.appFromName("Finder")
-local slack     = hs.appfinder.appFromName("Slack")
-
--------------------------------------------------------------------------------
--- real configuration
--------------------------------------------------------------------------------
--- variable config
 hs.window.animationDuration = 0
 hs.window.setShadows(false)
 
--- extensions, available in hammerspoon console
 ext = {
   frame    = {},
   win      = {},
@@ -67,9 +12,6 @@ ext = {
 
 local mash      = {"cmd", "alt", "ctrl"}
 local mash_apps = {"cmd", "alt"}
-
--- find applicaiton names hs.fnutils.each(hs.application.runningApplications(), function(app) print(app:title()) end)
--- inspired on https://github.com/rtoshiro/hammerspoon-init/blob/master/init.lua
 local layout_code = {
   {
     name = {"iTerm2"},
@@ -79,54 +21,17 @@ local layout_code = {
   }
 }
 
-local layout_comms = {
-  {
-    name = {"Fantastical 2"},
-    func = function(index, win)
-        pushWindow(win,0,0,0.30,1) --left
-    end
-  },
-  {
-    name = {"Slack"},
-    func = function(index, win)
-        pushWindow(win,0.7,0,0.3,1) --right
-    end
-  },
-  {
-    name = {'Mailplane 3'},
-    func = function(index, win)
-       pushWindow(win,0.3,0,0.4,1) --middle
-    end
-  }
-}
-
--------------------------------------------------------------------------------
--- positioning windows on screen
--- https://github.com/exark/dotfiles/blob/master/.hammerspoon/init.lua
--------------------------------------------------------------------------------
 hs.hotkey.alertDuration = 0 -- Disable showing message when hotkey is pressed
-hs.hotkey.bind(mash, "1", 'move window to left side(1/4)',  function() push(0,0,(1/4),1) end)
-hs.hotkey.bind(mash, "2", 'move window to left side(2/4)',  function() push(0,0,(2/4),1) end)
-hs.hotkey.bind(mash, "3", 'move window to left side(3/4)',  function() push(0,0,(3/4),1) end)
-hs.hotkey.bind(mash, "4", 'move window to right side(3/4)', function() push(1/4,0,(3/4),1) end)
-hs.hotkey.bind(mash, "5", 'move window to right side(2/4)', function() push(0.5,0,0.5,1) end)
-hs.hotkey.bind(mash, "6", 'move window to right side(1/4)', function() push((1/4*3),0,(1/4),1) end)
-
-hs.hotkey.bind(mash, "Z", 'move window to left side(1/3)',  function() push(0,0,(1/3),1) end)           -- left side
-hs.hotkey.bind(mash, "X", 'move window to left side(2/3)',  function() push(0,0,(1/3*2),1) end)         -- left two third
-hs.hotkey.bind(mash, "M", 'move window to right side(1/3)', function() push((1/3*2),0,(1/3),1) end)     -- right
-hs.hotkey.bind(mash, "N", 'move window to right side(2/3)', function() push((1/3),0,(1/3*2),1) end)     -- right two third
-hs.hotkey.bind(mash, "V", 'move window to midle',           function() push((1/3),0,(1/3),1) end)       -- middle
-hs.hotkey.bind(mash, "space", "full screen",                function() push(0,0,1,1) end)               -- full screen
-hs.hotkey.bind(mash, "f", "move window to center",          function() push(0.05,0.05,0.9,0.9) end)
-hs.hotkey.bind(mash, "C", 'move window to half left',       function() push(0,0,0.5,1) end)             -- half left
-hs.hotkey.bind(mash, "B", 'move window to half right',      function() push((1/2),0,0.5,1) end)         -- half right
-
+hs.hotkey.bind(mash, "9", 'move left', function() move(-0.1, 0) end)
+hs.hotkey.bind(mash, "=", 'move right', function() move(0.1, 0) end)
+hs.hotkey.bind(mash, "0", 'move up', function() move(0, -0.1) end)
+hs.hotkey.bind(mash, "-", 'move down', function() move(0, 0.1) end)
+hs.hotkey.bind(mash, "i", 'zoom in', function() resizeWindow(0.05, 0.05) end)
+hs.hotkey.bind(mash, "o", 'zoom o', function() resizeWindow(-0.05, -0.05) end)
 -- hs.hotkey.bind(mash, "8", function() applyLayouts(layout_code) end)
 -- hs.hotkey.bind(mash, "pad2", function() applyLayouts(layout_comms) end)
 hs.hotkey.showHotkeys(mash, "/")
 hs.hotkey.bind(mash, "d", function()
-  --for win in hs.window.allWindows() do
   for _, win in ipairs(hs.window.allWindows()) do
     if win then
       win:minimize()
@@ -139,38 +44,36 @@ end)
 -------------------------------------------------------------------------------
 -- reload configuration
 -------------------------------------------------------------------------------
-hs.hotkey.bind(mash, "R", function()
-  hs.reload()
-  print('config reloaded')
-end)
+hs.hotkey.bind(mash, "R",
+               function()
+                 hs.reload()
+                 print('config reloaded')
+               end
+)
+
 hs.alert.show("Config loaded")
 
-hs.hotkey.bind(mash, "E", function()
-                  print('config reloaded')
-                  myHoge()
-end)
 -- launch and focus applications with below shortkey
 hs.fnutils.each({
   -- { key = "g", app = "Google Chrome" },
-  { key = "s", app = "slack" },
-  { key = "t", app = "iTerm2" },
-  { key = "k", app = "KeePassX" },
-  { key = "h", app = 'Hammerspoon' },
+    { key = "s", app = "Slack" },
+    { key = "t", app = "iTerm2" },
+    { key = "m", app = "Macpass" },
+    { key = "h", app = 'Hammerspoon' },
 }, function(object)
     hs.hotkey.bind(mash_apps, object.key, object.app, function() ext.app.forceLaunchOrFocus(object.app) end)
 end)
-
 
 -------------------------------------------------------------------------------
 -- move current window to next screen
 -------------------------------------------------------------------------------
 hs.hotkey.bind(mash, ']', nil,
                function()
-                  if (#hs.screen.allScreens() > 1) then
-                     hs.window.focusedWindow():moveToScreen(hs.window.focusedWindow():screen():next())
-                     push(0.05,0.05,0.9,0.9)
-                  end
-               end)
+                 if (#hs.screen.allScreens() > 1) then
+                   hs.window.focusedWindow():moveToScreen(hs.window.focusedWindow():screen():next())
+                   push(0,0,0.5,0.5)
+                 end
+end)
 
 -- functions below
 
@@ -191,6 +94,27 @@ function push(x, y, w, h)
   f.w = max.w*w
   f.h = max.h*h
   win:setFrame(f)
+end
+
+function move(x_percent, y_percent)
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+  local screen = win:screen()
+  local max = screen:frame()
+
+  f.x = f.x + max.w * x_percent
+  f.y = f.y + max.h * y_percent
+  win:setFrameInScreenBounds(f)
+end
+
+function resizeWindow(w, h)
+   local win = hs.window.focusedWindow()
+   local f = win:frame()
+   local screen = win:screen()
+   local max = screen:frame()
+   f.w = f.w + max.w * w
+   f.h = f.h + max.h * h
+   win:setFrame(f)
 end
 
 function pushWindow(win, x, y, w, h)
@@ -240,16 +164,16 @@ end
 
 -- a helper function that returns another function that resizes the current window
 -- to a certain grid size.
-local gridset = function(x, y, w, h)
-    return function()
-        cur_window = window.focusedwindow()
-        hs.grid.set(
-            cur_window,
-            {x=x, y=y, w=w, h=h},
-            cur_window:screen()
-        )
-    end
-end
+-- local gridset = function(x, y, w, h)
+--     return function()
+--         cur_window = window.focusedwindow()
+--         hs.grid.set(
+--             cur_window,
+--             {x=x, y=y, w=w, h=h},
+--             cur_window:screen()
+--         )
+--     end
+-- end
 
 -- smart app launch or focus or cycle windows
 function ext.app.smartLaunchOrFocus(launchApps)
@@ -486,6 +410,8 @@ end
 -------------------------------------------------------------------------------
 -- Loading Spoons
 -------------------------------------------------------------------------------
-hs.fnutils.each({
-      { name = 'FnMate'}
-                }, function(spoon) hs.loadSpoon(spoon.name) end)
+hs.fnutils.each(
+  {
+    { name = 'FnMate' }
+  }, function(spoon) hs.loadSpoon(spoon.name) end
+)
