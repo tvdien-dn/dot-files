@@ -1,6 +1,9 @@
-;; auto-completion
+;;; package --- Summary
+;;; Commentary:
+;;; Code:
+
 (require 'company)
-(global-company-mode)
+(add-hook 'after-init-hook 'global-company-mode)
 (setq company-dabbrev-downcase nil)
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 2)
@@ -19,7 +22,6 @@
                  ,(concat dest-dir   "\\2")
                  t))
   (add-to-list 'backup-directory-alist (cons target-dir dest-dir))
-
   (setq auto-save-list-file-prefix (expand-file-name ".save-" dest-dir)))
 (setq make-backup-files nil)
 
@@ -28,12 +30,11 @@
 (ffap-bindings)
 (add-hook 'dired-load-hook (lambda()
                              (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)))
-(setq dired-listing-switches (purecopy "-ahl"))
+(setq dired-listing-switches (purecopy "-Ahl"))
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-dwim-target t)
 
 ;; smart mode line
-
 (setq sml/theme 'respectful)
 (setq sml/col-number t)
 (setq sml/show-eol t)
@@ -52,8 +53,8 @@
 ;; (windmove-default-keybindings) ;; Windownsの移動 Shift-arrow_key
 (electric-pair-mode t) ;; 自動の閉じ括弧
 (show-paren-mode t) ;; 括弧の強調表示
-(auto-revert-mode) ;; 自動revert-buffer
-(column-number-mode) ;; カラム数
+(auto-revert-mode t) ;; 自動revert-buffer
+(column-number-mode nil) ;; カラム数
 (menu-bar-mode -1)
 
 ;; whitespace (build-in)
@@ -83,7 +84,6 @@
 (global-set-key (kbd "M-/") 'undo-tree-redo)
 
 ;; Customize keybindings
-(global-set-key "\C-xl" 'goto-line)
 (require 'fzf)
 (setq fzf/args "-x --color 16 --print-query")
 (global-set-key "\C-xp" 'fzf-jp-projects)
@@ -94,46 +94,6 @@
 ;;SSH editor
 (require 'tramp)
 (setq tramp-default-method "ssh")
-(defalias 'exit-tramp 'tramp-cleanup-all-buffers)
-(define-key global-map (kbd "C-c s") 'anything-tramp)
-(tramp-set-completion-function "ssh"
-                               '((tramp-parse-shosts "~/.ssh/known_hosts")
-                                 (tramp-parse-sconfig "/Users/mars_tran/.ssh/conf.d/cloth.conf")
-                                 (tramp-parse-sconfig "/Users/mars_tran/jp_projects/fg-server/ansible/vagrant_ssh_config")))
-
-;; anything-trampのメソッドを上書きしている
-(defvar anything-tramp-hosts
-  '((name . "Tramp")
-    (candidates . (lambda () (custom_anything-tramp--candidates)))
-    (type . file)
-    (action . (("Tramp" . anything-tramp-open)))))
-
-(defun custom_anything-tramp--candidates ()
-  "Collect candidates for anything-tramp."
-  (let ((source (split-string
-                 (with-temp-buffer
-                   (insert-file-contents "~/.ssh/config")
-                   (insert-file-contents "~/.ssh/conf.d/cloth.conf")
-                   (insert-file-contents "/Users/mars_tran/jp_projects/fg-server/ansible/vagrant_ssh_config")
-                   (buffer-string))
-                 "\n"))
-        (hosts (list)))
-    (dolist (host source)
-      (when (string-match "[H\\|h]ost +\\(.+?\\)$" host)
-        (setq host (match-string 1 host))
-        (if (string-match "[ \t\n\r]+\\'" host)
-            (replace-match "" t t host))
-        (if (string-match "\\`[ \t\n\r]+" host)
-            (replace-match "" t t host))
-        (unless (string= host "*")
-          (push
-           (concat "/" tramp-default-method ":" host ":/")
-           hosts)
-          (push
-           (concat "/ssh:" host "|sudo:" host ":/")
-           hosts))))
-    (push "/sudo:root@localhost:/" hosts)
-    (reverse hosts)))
 
 ;; スクロールした際のカーソルの移動行数
 (setq scroll-conservatively 1)
@@ -145,3 +105,4 @@
 (setq scroll-preserve-screen-position t)
 
 (provide '00base)
+;;; 00base.el ends here
