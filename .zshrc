@@ -128,7 +128,11 @@ alias emacsreset='emacsclient -e "(kill-emacs)" && emacs --daemon'
 # direnv
 eval "$(direnv hook zsh)"
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+source "${HOME}/.iterm2_shell_integration.zsh"
+iterm2_print_user_vars() {
+  iterm2_set_user_var hoge $(echo "hgoe")
+  iterm2_set_user_var gitBranch $((git branch 2> /dev/null) | grep \* | cut -c3-)
+}
 
 # Turn on AWS CLI auto-completion
 if type 'aws_completer' > /dev/null; then
