@@ -2,9 +2,5 @@
 
 /.tmux/plugins/
 /.anyenv/
-.emacs.d/elpa/
-.emacs.d/tramp
 .pry_history
 .zprofile
-.emacs.d/eshell/history
-.emacs.d/eshell/lastdir
