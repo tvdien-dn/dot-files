@@ -2,5 +2,4 @@
 
 /.tmux/plugins/
 /.anyenv/
-.pry_history
-.zprofile
+.zshenv

@@ -3,6 +3,7 @@
 [user]
   userConfigOnly = true
   name = tvdien.dn
+  signingkey = 01BCD26724B175EE
 [alias]
   export-diff-head = "!f() { git archive --format=zip HEAD `git diff HEAD~ --diff-filter=ACMRTUXB --name-only` -o `date +"H_archive_%Y%m%d%H%M%S.zip"`; }; f"
   export-diff-head-ext = "!f() { git archive --format=zip HEAD `git diff $1 --diff-filter=ACMRTUXB --name-only` -o `date +"H_archive_%Y%m%d%H%M%S.zip"`; }; f"
@@ -12,12 +13,11 @@
   showpr = "!f() { git log --merges --oneline --reverse --ancestry-path $1...`git branch|grep '*'|cut -d ' ' -f2` | grep 'Merge pull request #' | head -n 1; }; f"
   oneline-log = log --date=iso --pretty=format:'%C(yellow)%h %C(green)%cd %Cblue%<(10,trunc)%aN %m %Creset%s'
   twoline-log = log --date=iso --pretty=format:'%C(yellow)%h %C(green)%cd %Cblue%<(10,trunc)%aN %m %Creset%n%<(50,trunc)%s'
-  mycleanup = "!f() { local branches; branches=`git branch --merged | grep -v 'master' | grep -v '*'`; [ -z \"$branches\" ] && echo 'Nothing to remove'; [ -n \"$branches\" ] &&  git branch -d $branches; }; f"
+  mycleanup = "!f() { local branches; branches=`git branch --merged $(git name-rev --name-only HEAD)|grep -v -E '(^\\*| master$)'`; [ -z \"$branches\" ] && echo 'Nothing to remove'; [ -n \"$branches\" ] &&  git branch -d $branches; }; f"
   log-diff-master = "!f() { git oneline-log `git branch|grep '*'|gsed -n -e 's/* /master../p'` --reverse; }; f"
   aom = "!f() { git add `git status -u|grep modified|gsed -n -e 's/modified:\\s*//p'| head -n 1`; }; f"
   cwn = "!f() { git commit --message=\"modified $(git diff --cached --name-only)\"; }; f"
   commit-one-modified = "!f() { git aom; git cwn; }; f"
-  hoge = "!f() { git branch --merged | grep -v master; }; [[ $1 == \"-n\" ]] && f || f | xargs git branch -d"
   # change-files = "!f() { git diff master --name-status >> `git branch|grep '*'|cut -d ' ' -f2|sed 's/\\//_/g'` ; }; f"
   change-files = "!f() { local target=${1:-master} ; git diff $target --name-status; }; f"
   bpr = "!f() { local prId=$(git showpr $1 2>/dev/null); hub browse -- pull/$(echo $prId| cut -d '#' -f2 | cut -d ' ' -f1); }; f"
@@ -32,3 +32,7 @@
 [credential]
   # helper = osxkeychain
   UseHttpPath = true
+[commit]
+  gpgsign = true
+[gpg]
+  program = gpg

@@ -2,7 +2,7 @@
 ## Pry
 ### History
 Pry.config.should_load_rc = false
-Pry.config.history.file = '~/dotfiles/.pry_history'
+Pry.config.history.file = '~/.pry_history'
 Pry.hooks.add_hook(:before_session, 'simple-prompt') do |output, _binding, pry|
  pry.push_prompt Pry::SIMPLE_PROMPT
  output.puts('change-prompt')
@@ -45,6 +45,11 @@ if defined? AwesomePrint
 end
 
 # refs: https://github.com/pry/pry/wiki/FAQ#wiki-hirb
+begin
+  require 'hirb'
+rescue LoadError
+  # Missing goodies, bummer
+end
 if defined? Hirb
 Hirb::View.instance_eval do
   def enable_output_method

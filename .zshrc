@@ -93,7 +93,7 @@ alias tree='tree -C --dirsfirst'
 alias be='bundle exec'
 
 ## 色付きlessコマンド
-export LESSOPEN="|$HOME/dotfiles/src-hilite-lesspipe.sh %s"
+# export LESSOPEN="|$HOME/dotfiles/src-hilite-lesspipe.sh %s"
 export LESS='-gj10 -RNC'
 
 ##alias to mysqlversion 5.7.9
@@ -121,23 +121,24 @@ eval "$(pyenv virtualenv-init -)"
 source /Users/mars_tran/dotfiles/.anyenv/envs/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/tmuxinator-0.10.1/completion/tmuxinator.zsh
 
 #alias to use emacsclient
-alias e='myeditor $@'
-#alias quick reset emacs server
-alias emacsreset='emacsclient -e "(kill-emacs)" && emacs --daemon'
+alias e='emacsclient -c -t --alternate-editor='
 
 # direnv
 eval "$(direnv hook zsh)"
 
 source "${HOME}/.iterm2_shell_integration.zsh"
 iterm2_print_user_vars() {
-  iterm2_set_user_var hoge $(echo "hgoe")
   iterm2_set_user_var gitBranch $((git branch 2> /dev/null) | grep \* | cut -c3-)
 }
 
 # Turn on AWS CLI auto-completion
 if type 'aws_completer' > /dev/null; then
   source $(dirname `which aws_completer`)/aws_zsh_completer.sh
-  # source /usr/local/bin/aws_zsh_completer.sh
 fi
 export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 source $HOME/dotfiles/customized.zsh-theme
+
+export PATH="$HOME/go/bin:$PATH"
+export GOPATH="$HOME/go"
+export PATH="/usr/local/sbin:$PATH"
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
