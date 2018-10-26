@@ -1,21 +1,13 @@
-export LSCOLORS='Cxfxcxdxbxegedabagacad'
-# SSH先が日本語のOSSで文字化けを回避するため
-export LC_CTYPE=ja_JP.UTF-8
-
 function get_last_download(){
   ls -t ~/Downloads|head -1 | awk '{system("mv -v ~/Downloads/" $0 " .");}'
 }
 
-
-alias fcd='cd $(ghq list -p|fzf --reverse)'
-
 function quick_less() {
-    BUFFER=`find $(pwd) ! -path '*.git*' -type f|fzf --reverse --preview "less {}"`
-    BUFFER="less "$BUFFER
-    CURSOR=$#BUFFER
-    zle reset-prompt
+  BUFFER=`find $(pwd) ! -path '*.git*' -type f|fzf --reverse --preview "less {}"`
+  BUFFER="less "$BUFFER
+  CURSOR=$#BUFFER
+  zle reset-prompt
 }
-
 zle -N quick_less
 bindkey '^F' quick_less
 
@@ -29,12 +21,6 @@ function fzf-history-selection() {
 }
 zle -N fzf-history-selection
 bindkey '^R' fzf-history-selection
-
-fgbd() {
-  git branch | grep -v '\*' |
-  fzf --ansi --multi --no-sort --tiebreak=index --reverse --inline-info|
-  xargs git branch -D
-}
 
 fshow() {
   git log --graph --color=always \
@@ -65,7 +51,6 @@ fbr() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
-# fkill - kill process
 fkill() {
   local pid
   pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
@@ -82,18 +67,6 @@ fe() {
 
 function git() { hub "$@" }
 
-function fzf-tmux-switch-client() {
-  local sessions session sessionName; sessions=$(tmux ls) && session=$(echo "$sessions" |fzf) && sessionName=$(echo "$session" | cut -d: -f1) && tmux switchc -t $sessionName
-}
-
-function new_switch_session() {
-  BUFFER=$(fzf-tmux-switch-client)
-  CURSOR=$#BUFFER
-  zle reset-prompt
-}
-zle -N new_switch_session
-bindkey '^T' new_switch_session
-
 fghost() {
   local script_dictionary_file="~/jp_projects/osascripts/osascripts"
   if [ "$1" = "--edit" ]; then
@@ -107,9 +80,6 @@ fghost() {
     ssh taopaipai $my_cmd
   fi
 }
-alias revert-tree="sort|gsed -e '1d; s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
-alias rcolor="gsed -r 's/\x1B\[[0-9;]+[mGK]//g'"
-# alias rcolor="ruby -pe '$_.gsub! /\e\[[0-9;]+[mK]/, ""'"
 
 showSSH() {
     local search_options=$1
@@ -122,3 +92,10 @@ showSSH() {
     done
 }
 alias fssh='ssh $(echo `cat ~/.ssh/config ~/.ssh/conf.d/*.conf|gsed -n -e "/^Host / { s/^Host \(.\+\)$/\1/g; /\*/d; s/ /\n/g;p }"|fzf --reverse`)'
+alias fdc='docker container ls -a|fzf -m --reverse|cut -d " " -f1|sed -e ":a" -e "N" -e "$!ba" -e "s/\n/ /g"'
+alias revert-tree="sort|gsed -e '1d; s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
+alias rcolor="gsed -r 's/\x1B\[[0-9;]+[mGK]//g'"
+alias tree='tree -C --dirsfirst'
+alias mycli57='mycli -uroot -P3357 --prompt="\u@\h:\d\n>"'
+alias mycli56='mycli -uroot -P3356 --prompt="\u@\h:\d\n>"'
+# alias e='emacsclient -c -t --alternate-editor='

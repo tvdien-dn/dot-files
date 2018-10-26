@@ -127,4 +127,4 @@
   ;; (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
   )
 (provide '00_base)
-;;00_base ends here
+;;; 00_base ends here

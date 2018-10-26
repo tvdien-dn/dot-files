@@ -24,11 +24,12 @@
 [core]
   editor = vim
   quotepath = false
-  pager = diff-so-fancy | less --tabs=4
+  pager = diff-so-fancy | LESS= less -FRX --tabs=4
 [pager]
   # diff = diff-highlight | less -FRX
   # show = diff-highlight | less -FRX
   # log = diff-highlight | less -FRX
+  branch = diff-highlight | LESS= less -FRX
 [credential]
   # helper = osxkeychain
   UseHttpPath = true

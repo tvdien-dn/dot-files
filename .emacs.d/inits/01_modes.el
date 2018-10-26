@@ -14,7 +14,7 @@
   :ensure t
   :config
   (global-set-key "\C-ct" 'google-translate-smooth-translate)
-  (setq google-translate-translation-directions-alist
+  (defvar google-translate-translation-directions-alist
     '(("en" . "ja") ("ja" . "en") ("ja" . "vi") ("en" . "vi")))
   )
 
@@ -158,6 +158,7 @@
 ;; Flycheck
 (use-package flycheck-color-mode-line
   :ensure t)
+
 (use-package flycheck
   :requires flycheck-color-mode-line
   :ensure t
@@ -168,6 +169,8 @@
   (add-hook 'after-init-hook #'global-flycheck-mode)
   )
 
+(require 'flycheck-color-mode-line)
+
 (use-package anzu
   :ensure t
   :config
@@ -177,4 +180,4 @@
     '(anzu-search-threshold 1000))
   )
 (provide '01_modes)
-;;01_modes ends here
+;;; 01_modes ends here
