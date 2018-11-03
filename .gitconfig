@@ -37,3 +37,6 @@
   gpgsign = true
 [gpg]
   program = gpg
+
+[ghq]
+  root = /Users/mars_tran/jp_projects

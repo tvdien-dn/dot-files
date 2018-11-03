@@ -3,3 +3,5 @@
 /.tmux/plugins/
 /.anyenv/
 .zshenv
+*.zwc
+.zcompdump
