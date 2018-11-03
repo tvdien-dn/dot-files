@@ -1,4 +1,3 @@
-# fpath=(~/.zsh/completion $fpath)
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -19,57 +18,77 @@ if [ $UID = 0 ]; then
 fi
 
 # ## zplug setting https://github.com/zplug/zplug
+ZPLUG_LOADFILE="$HOME/.zplug/"
 source ~/.zplug/init.zsh
 zplug "zsh-users/zsh-syntax-highlighting"
-
-# zplug "zsh-users/zsh-history-substring-search"
-# zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "b4b4r07/enhancd", use:init.sh
 export ENHANCD_FILTER=fzf
-# zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
+zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
-# zplug "themes/steeef", from:oh-my-zsh #themes
 zplug "plugins/git", from:oh-my-zsh, as:plugin
 zplug "plugins/common-aliases", from:oh-my-zsh, as:plugin
 zplug "plugins/emacs", from:oh-my-zsh, as:plugin
+# zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug load
 
-# if zplug check "zsh-users/zsh-history-substring-search"; then
-#   bindkey '^P' history-substring-search-up
-#   bindkey '^N' history-substring-search-down
-# fi
+# bindkey -M emacs '^P' history-substring-search-up
+# bindkey -M emacs '^N' history-substring-search-down
+
+# load theme
+source $HOME/dotfiles/customized.zsh-theme
 
 # # Prevent duplicate defined when use tmux
+typeset -U path PATH
 if [ -z $TMUX ]
 then
-  #Anyenv 設定
   export PATH="$HOME/dotfiles/.anyenv/bin:$PATH"
   export ANYENV_ROOT="$HOME/dotfiles/.anyenv"
-  # AWS-CLI
-  export PATH=~/.local/bin:$PATH
-  # GIT COLORFUL
   export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
-  # Brew, Imagemagick
-  # export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-  # export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
   export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
   export PATH="$HOME/go/bin:$PATH"
   export PATH="/usr/local/sbin:$PATH"
-  eval "$(anyenv init - --no-rehash)"
-  eval "$(pyenv virtualenv-init -)"
+  export PATH="/usr/local/aws/bin/:$PATH"
 fi
-
+eval "$(anyenv init - --no-rehash)"
+eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"
 
 source "${HOME}/.iterm2_shell_integration.zsh"
-if type 'aws_completer' > /dev/null; then
-  source $(dirname `which aws_completer`)/aws_zsh_completer.sh
-fi
-source $HOME/dotfiles/customized.zsh-theme
 
-export GOPATH="$HOME/go"
+# export GOPATH="$HOME/go"
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export LESS='-gj10 -RNC'
 # export LESSOPEN="|$HOME/dotfiles/src-hilite-lesspipe.sh %s"
-# zprof
+# alias tmux='direnv exec / tmux'
+
+# The following lines were added by compinstall
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' max-errors 1
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl true
+zstyle ':completion:*' verbose true
+zstyle ':completion:*:manuals' separate-sections true
+zstyle :compinstall filename '/Users/mars_tran/dotfiles/.zshrc'
+
+autoload -Uz compinit
+compinit -i
+# End of lines added by compinstall
+
+# if (which zprof > /dev/null) ;then
+#   zprof | less
+# fi
+if [ -e /usr/local/aws/bin/aws_zsh_completer.sh ]; then
+  source "/usr/local/aws/bin/aws_zsh_completer.sh"
+fi
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+if [ ~/dotfiles/.zshrc -nt ~/dotfiles/.zshrc.zwc ]; then
+  zcompile ~/dotfiles/.zshrc
+fi

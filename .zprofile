@@ -98,4 +98,3 @@ alias rcolor="gsed -r 's/\x1B\[[0-9;]+[mGK]//g'"
 alias tree='tree -C --dirsfirst'
 alias mycli57='mycli -uroot -P3357 --prompt="\u@\h:\d\n>"'
 alias mycli56='mycli -uroot -P3356 --prompt="\u@\h:\d\n>"'
-# alias e='emacsclient -c -t --alternate-editor='
