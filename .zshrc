@@ -61,7 +61,7 @@ source "${HOME}/.iterm2_shell_integration.zsh"
 # export GOPATH="$HOME/go"
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export LESS='-gj10 -RNC'
-# export LESSOPEN="|$HOME/dotfiles/src-hilite-lesspipe.sh %s"
+export LESSOPEN="|$HOME/dotfiles/less_pygmentize.sh %s"
 # alias tmux='direnv exec / tmux'
 
 # The following lines were added by compinstall
