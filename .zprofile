@@ -75,9 +75,9 @@ fghost() {
     local order
     # order=$(cat ~/jp_projects/osascripts/osascripts |fzf|gsed -e 's/\((\|"\|)\)/\\\1/g')
     order=$(cat ~/jp_projects/osascripts/osascripts |fzf)
-    local my_cmd
-    my_cmd="osascript -e '$order'"
-    ssh taopaipai $my_cmd
+    local cmd
+    cmd="osascript -e '$order'"
+    ssh taopaipai $cmd
   fi
 }
 
@@ -98,3 +98,4 @@ alias rcolor="gsed -r 's/\x1B\[[0-9;]+[mGK]//g'"
 alias tree='tree -C --dirsfirst'
 alias mycli57='mycli -uroot -P3357 --prompt="\u@\h:\d\n>"'
 alias mycli56='mycli -uroot -P3356 --prompt="\u@\h:\d\n>"'
+alias E="SUDO_EDITOR=\"emacsclient\" sudo -e"

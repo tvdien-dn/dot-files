@@ -179,5 +179,8 @@
     '(anzu-deactivate-region t)
     '(anzu-search-threshold 1000))
   )
+(use-package direnv
+  :config
+  (direnv-mode))
 (provide '01_modes)
 ;;; 01_modes ends here

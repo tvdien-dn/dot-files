@@ -1,0 +1,15 @@
+#!/bin/sh
+
+rerun_first_err() {
+  [ ! -e spec/examples.txt ] && echo 'File not found' && exit 1
+  set -x
+  local failures=(`grep fail spec/examples.txt|cut -d ' ' -f1|cut -d '[' -f1|sort -nr |uniq`)
+  if [ ${#failures} -gt 0 ]
+  then
+    rspec --fail-fast --no-profile $failures
+  else
+    echo 'Everything is OK!'
+  fi
+}
+
+rerun_first_err
