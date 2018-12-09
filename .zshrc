@@ -1,6 +1,7 @@
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+CONFIG_DIR=$HOME/.config
 setopt append_history
 setopt extended_history
 setopt share_history
@@ -16,36 +17,36 @@ if [ $UID = 0 ]; then
     unset HISTFILE
     SAVEHIST=0
 fi
-
-# ## zplug setting https://github.com/zplug/zplug
-ZPLUG_LOADFILE="$HOME/.zplug/"
-source ~/.zplug/init.zsh
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "b4b4r07/enhancd", use:init.sh
-export ENHANCD_FILTER=fzf
-zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
-zplug "plugins/git", from:oh-my-zsh, as:plugin
-zplug "plugins/common-aliases", from:oh-my-zsh, as:plugin
-zplug "plugins/emacs", from:oh-my-zsh, as:plugin
-# zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug load
-
+## zplug setting https://github.com/zplug/zplug
+export ZPLUG_HOME=/usr/local/opt/zplug
+export PATH="$PATH:/usr/local/bin/"
+if [ -e $ZPLUG_HOME/init.zsh ]; then
+  source $ZPLUG_HOME/init.zsh
+  zplug "zsh-users/zsh-syntax-highlighting", defer:2
+  zplug "zsh-users/zsh-history-substring-search"
+  zplug "zsh-users/zsh-completions"
+  zplug "zsh-users/zsh-autosuggestions"
+  zplug "b4b4r07/enhancd", use:init.sh
+  export ENHANCD_FILTER=fzf
+  zplug "plugins/git", from:oh-my-zsh, as:plugin
+  zplug "plugins/common-aliases", from:oh-my-zsh, as:plugin
+  zplug "plugins/emacs", from:oh-my-zsh, as:plugin
+  # zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+  zplug load
+else
+  echo 'NO ZPLUG :('
+fi
 # bindkey -M emacs '^P' history-substring-search-up
 # bindkey -M emacs '^N' history-substring-search-down
 
 # load theme
-source $HOME/dotfiles/customized.zsh-theme
+source $ZDOTDIR/customized.zsh-theme
 
 # # Prevent duplicate defined when use tmux
 typeset -U path PATH
-if [ -z $TMUX ]
-then
-  export PATH="$HOME/dotfiles/.anyenv/bin:$PATH"
-  export ANYENV_ROOT="$HOME/dotfiles/.anyenv"
+if [ -z $TMUX ]; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  export ANYENV_ROOT="$HOME/.anyenv"
   export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
   export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
   export PATH="$HOME/go/bin:$PATH"
@@ -56,9 +57,13 @@ eval "$(anyenv init - --no-rehash)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"
 
-source "${HOME}/.iterm2_shell_integration.zsh"
+typeset -U path PATH
+export FPATH=$FPATH:$HOME/.config/.zsh/completion
 
-# export GOPATH="$HOME/go"
+if [ -e $CONFIG_DIR/iterm2/iterm2_shell_integration.zsh ]; then
+  source $CONFIG_DIR/iterm2/iterm2_shell_integration.zsh
+fi
+
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export LESS='-gj10 -RNC'
 export LESSOPEN="|$HOME/dotfiles/less_pygmentize.sh %s"
@@ -81,14 +86,12 @@ autoload -Uz compinit
 compinit -i
 # End of lines added by compinstall
 
-# if (which zprof > /dev/null) ;then
-#   zprof | less
-# fi
 if [ -e /usr/local/aws/bin/aws_zsh_completer.sh ]; then
-  source "/usr/local/aws/bin/aws_zsh_completer.sh"
+  source /usr/local/aws/bin/aws_zsh_completer.sh
 fi
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 if [ ~/dotfiles/.zshrc -nt ~/dotfiles/.zshrc.zwc ]; then
   zcompile ~/dotfiles/.zshrc
 fi
+export GPG_TTY=$(tty)

@@ -22,7 +22,8 @@
 
 ;; swap left-option and left-command keys
 (when (eq system-type 'darwin)
-  (defvar ns-command-modifier "meta"))
+  (defvar ns-command-modifier (quote meta))
+  (defvar ns-alternate-modifier (quote super)))
 
 ;; Other
 (prefer-coding-system 'utf-8) ;; set system character code
