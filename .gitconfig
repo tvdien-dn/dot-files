@@ -3,7 +3,6 @@
 [user]
   userConfigOnly = true
   name = tvdien.dn
-  signingkey = 01BCD26724B175EE
 [alias]
   export-diff-head = "!f() { git archive --format=zip HEAD `git diff HEAD~ --diff-filter=ACMRTUXB --name-only` -o `date +"H_archive_%Y%m%d%H%M%S.zip"`; }; f"
   export-diff-head-ext = "!f() { git archive --format=zip HEAD `git diff $1 --diff-filter=ACMRTUXB --name-only` -o `date +"H_archive_%Y%m%d%H%M%S.zip"`; }; f"
@@ -31,12 +30,10 @@
   # log = diff-highlight | less -FRX
   branch = diff-highlight | LESS= less -FRX
 [credential]
-  # helper = osxkeychain
   UseHttpPath = true
 [commit]
   gpgsign = true
 [gpg]
   program = gpg
-
 [ghq]
-  root = /Users/mars_tran/jp_projects
+  root = ~/projects

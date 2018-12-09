@@ -5,3 +5,8 @@
 .zshenv
 *.zwc
 .zcompdump
+
+direnv/allow/*
+
+.gnupg/*
+!.gnupg/*.conf
