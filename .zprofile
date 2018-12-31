@@ -1,3 +1,20 @@
+function peridot_test() {
+  local usage_msg="Usage:\n\t$0 docker_container_name [spec_directory_name]"
+  if [ -e $1 ]; then
+    echo $usage_msg
+    return 1
+  fi
+  local container_name=$1
+  local test_dir=${2:-spec}
+  
+  if [ -e $PERIDOT_TEST_CMD ]; then
+     echo 'Error: Environment PERIDOT_TEST_CMD is not defined.\n'
+     return 1
+  fi
+
+  docker exec -it $container_name sh -c "$PERIDOT_TEST_CMD $test_dir"
+}
+
 function get_last_download(){
   ls -t ~/Downloads|head -1 | awk '{system("mv -v ~/Downloads/" $0 " .");}'
 }
@@ -99,3 +116,5 @@ alias tree='tree -C --dirsfirst'
 alias mycli57='mycli -uroot -P3357 --prompt="\u@\h:\d\n>"'
 alias mycli56='mycli -uroot -P3356 --prompt="\u@\h:\d\n>"'
 alias E="SUDO_EDITOR=\"emacsclient\" sudo -e"
+# TMUX direnv https://github.com/direnv/direnv/wiki/Tmux
+alias tmux="direnv exec / tmux" 

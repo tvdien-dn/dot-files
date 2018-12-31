@@ -36,29 +36,35 @@ if [ -e $ZPLUG_HOME/init.zsh ]; then
 else
   echo 'NO ZPLUG :('
 fi
-# bindkey -M emacs '^P' history-substring-search-up
-# bindkey -M emacs '^N' history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
 
 # load theme
 source $ZDOTDIR/customized.zsh-theme
 
-# # Prevent duplicate defined when use tmux
+# Prevent duplicate defined when use tmux
 typeset -U path PATH
 if [ -z $TMUX ]; then
-  export PATH="$HOME/.anyenv/bin:$PATH"
   export ANYENV_ROOT="$HOME/.anyenv"
-  export PATH=$PATH:/usr/local/share/git-core/contrib/diff-highlight
-  export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-  export PATH="$HOME/go/bin:$PATH"
-  export PATH="/usr/local/sbin:$PATH"
-  export PATH="/usr/local/aws/bin/:$PATH"
+  custom_paths=($HOME/.anyenv/bin(N-/)
+                $HOME/Library/Android/sdk/platform-tools(N-/)
+                $HOME/go/bin(N-/)
+                $HOME/.gem/ruby/2.3.0/bin
+                $HOME/Library/Python/3.7/bin(N-/)
+                $HOME/Library/Python/2.7/bin(N-/)
+                /usr/local/sbin(N-/)
+                /usr/local/aws/bin(N-/)
+               )
+                # /usr/local/share/git-core/contrib/diff-highlight(N-/)
+  export path=($custom_paths $path)
 fi
 eval "$(anyenv init - --no-rehash)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"
 
 typeset -U path PATH
-export FPATH=$FPATH:$HOME/.config/.zsh/completion
+
+export fpath=($fpath $HOME/.config/.zsh/completion(N-/))
 
 if [ -e $CONFIG_DIR/iterm2/iterm2_shell_integration.zsh ]; then
   source $CONFIG_DIR/iterm2/iterm2_shell_integration.zsh
@@ -66,7 +72,7 @@ fi
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export LESS='-gj10 -RNC'
-export LESSOPEN="|$HOME/dotfiles/less_pygmentize.sh %s"
+export LESSOPEN="|$HOME/.config/less_pygmentize.sh %s"
 # alias tmux='direnv exec / tmux'
 
 # The following lines were added by compinstall
@@ -86,12 +92,21 @@ autoload -Uz compinit
 compinit -i
 # End of lines added by compinstall
 
-if [ -e /usr/local/aws/bin/aws_zsh_completer.sh ]; then
-  source /usr/local/aws/bin/aws_zsh_completer.sh
+if [ -e $HOME/Library/Python/3.7/bin/aws_zsh_completer.sh ]; then
+  source $HOME/Library/Python/3.7/bin/aws_zsh_completer.sh
 fi
+
+if which pip 1>/dev/null 2>&1; then
+  if [ ! -e $HOME/.config/.zsh/completion/_pip ]; then
+    pip completion --zsh >> $HOME/.zsh/completion/_pip
+  fi
+  source $HOME/.config/.zsh//completion/_pip 
+fi
+
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export GPG_TTY=$(tty)
+
 if [ ~/dotfiles/.zshrc -nt ~/dotfiles/.zshrc.zwc ]; then
   zcompile ~/dotfiles/.zshrc
 fi
-export GPG_TTY=$(tty)
