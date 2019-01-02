@@ -67,20 +67,6 @@ fkill() {
 
 function git() { hub "$@" }
 
-fghost() {
-  local script_dictionary_file="~/jp_projects/osascripts/osascripts"
-  if [ "$1" = "--edit" ]; then
-    emacsclient -c -t $script_dictionary_file
-  else
-    local order
-    # order=$(cat ~/jp_projects/osascripts/osascripts |fzf|gsed -e 's/\((\|"\|)\)/\\\1/g')
-    order=$(cat ~/jp_projects/osascripts/osascripts |fzf)
-    local cmd
-    cmd="osascript -e '$order'"
-    ssh taopaipai $cmd
-  fi
-}
-
 showSSH() {
     local search_options=$1
     for item in `find $HOME/.ssh/ -type f -name '*.conf' -o -name 'config'` ; do
