@@ -15,19 +15,6 @@ function peridot_test() {
   docker exec -it $container_name sh -c "$PERIDOT_TEST_CMD $test_dir"
 }
 
-function get_last_download(){
-  ls -t ~/Downloads|head -1 | awk '{system("mv -v ~/Downloads/" $0 " .");}'
-}
-
-function quick_less() {
-  BUFFER=`find $(pwd) ! -path '*.git*' -type f|fzf --reverse --preview "less {}"`
-  BUFFER="less "$BUFFER
-  CURSOR=$#BUFFER
-  zle reset-prompt
-}
-zle -N quick_less
-bindkey '^F' quick_less
-
 ## fzf-tweak (https://github.com/junegunn/fzf/wiki/examples#git)
 
 ## Crtl-Rで履歴検索 (fzf)
@@ -78,10 +65,6 @@ fkill() {
   fi
 }
 
-fe() {
-  emacsclient -nw $(fzf +m --reverse --preview "/Users/mars_tran/dotfiles/src-hilite-lesspipe.sh {}")
-}
-
 function git() { hub "$@" }
 
 fghost() {
@@ -118,3 +101,5 @@ alias mycli56='mycli -uroot -P3356 --prompt="\u@\h:\d\n>"'
 alias E="SUDO_EDITOR=\"emacsclient\" sudo -e"
 # TMUX direnv https://github.com/direnv/direnv/wiki/Tmux
 alias tmux="direnv exec / tmux" 
+alias get_download='mv $(ls -1td ~/Downloads/*|fzf) .'
+alias fe='emacsclient -nw $(fzf +m --reverse --preview "less {}")'
