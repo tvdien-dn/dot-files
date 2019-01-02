@@ -10,5 +10,5 @@ direnv/allow/*
 
 .gnupg/*
 !.gnupg/*.conf
-node_modules
 .zsh/completion/*
+karabiner/automatic_backups
