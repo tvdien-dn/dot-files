@@ -32,3 +32,4 @@
 [diff-so-fancy]
   changeHunkIndicators = false
   markEmptyLines = false
+  useUnicodeRuler = false
