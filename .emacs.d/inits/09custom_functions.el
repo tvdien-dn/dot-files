@@ -1,4 +1,4 @@
-;;; 09my_functions --- customized funtions
+;;; 09custom_functions --- customized funtions
 ;;; Commentary:
 
 ;;; Code:
@@ -64,5 +64,5 @@
 (setq interprogram-cut-function 'paste-to-osx)
 (setq interprogram-paste-function 'copy-from-osx)
 
-(provide '09my_function)
-;;; 09my_function.el ends here
+(provide '09custom_functions)
+;;; 09custom_functions.el ends here

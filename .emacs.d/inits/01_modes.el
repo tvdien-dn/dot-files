@@ -2,34 +2,16 @@
 ;;; Commentary:
 
 ;;; Code:
-;; magit
-(use-package magit
-  :ensure t
-  :config
-  (setq magit-completing-read-function 'ivy-completing-read)
-  )
-
-;; Google translate settings
-(use-package google-translate
-  :ensure t
-  :config
-  (global-set-key "\C-ct" 'google-translate-smooth-translate)
-  (defvar google-translate-translation-directions-alist
-    '(("en" . "ja") ("ja" . "en") ("ja" . "vi") ("en" . "vi")))
-  )
-
-
 ;; Ruby
 (use-package ruby-mode
   :ensure t
   :config
+  (setq ruby-insert-encoding-magic-comment nil)
+  (add-hook 'ruby-mode-hook #'subword-mode)
   (add-hook 'ruby-mode-hook '(lambda()
                                (setq flycheck-checker 'ruby-rubocop)
                                (setq flycheck-disabled-checkers '(ruby-rubylint))
-                               (setq ruby-insert-encoding-magic-comment nil)
-                               (flycheck-mode 1)))
-  )
-
+                               (flycheck-mode 1))))
 ;; PHP
 (use-package ac-php :ensure t)
 (use-package company-php :ensure t)
@@ -155,32 +137,5 @@
              (setq sh-indent-for-case-label 0)
              (setq sh-indent-for-case-alt '+)))
 
-;; Flycheck
-(use-package flycheck-color-mode-line
-  :ensure t)
-
-(use-package flycheck
-  :requires flycheck-color-mode-line
-  :ensure t
-  :config
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (eval-after-load 'flycheck
-    '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-  )
-
-(require 'flycheck-color-mode-line)
-
-(use-package anzu
-  :ensure t
-  :config
-  (custom-set-variables
-    '(anzu-mode-lighter "")
-    '(anzu-deactivate-region t)
-    '(anzu-search-threshold 1000))
-  )
-(use-package direnv
-  :config
-  (direnv-mode))
 (provide '01_modes)
 ;;; 01_modes ends here
