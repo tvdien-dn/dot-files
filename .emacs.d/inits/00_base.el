@@ -106,17 +106,23 @@
 
 (use-package smart-mode-line :ensure t
   :config
+  (setq sml/no-confirm-load-theme t)
   (setq sml/theme 'dark)
   (setq sml/show-eol t)
-  (setq sml/shorten-directory t)
-  (setq sml/no-confirm-load-theme t)
-  (setq sml/col-number t)
-  (add-to-list 'sml/replacer-regexp-list '("^~/projects/github.com/1pac" "1pac_git") t)
+  (setq sml/shorten-directory nil)
+  (setq sml/shorten-modes t)
+  (setq sml/col-number-format "%3")
+  (setq sml/line-number-format "%4")
+  (setq sml/name-width (cons 35 50))
+  (add-to-list 'sml/replacer-regexp-list '("^~/projects/github.com/" ":PG:/") t)
+  (add-to-list 'sml/replacer-regexp-list '("\\(/.\\)[^/]+" "\\1") t)
   (sml/setup))
 
 (use-package rainbow-mode :delight
   :config
-  (add-hook 'web-mode-hook 'rainbow-mode))
+  (add-hook 'web-mode-hook 'rainbow-mode)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+  )
 
 ;; https://www.emacswiki.org/emacs/WhiteSpace
 (use-package whitespace
@@ -188,7 +194,7 @@
   (direnv-mode))
 
 ;; Flycheck
-(use-package flycheck :ensure t :delight
+(use-package flycheck :ensure t
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode)
   )
@@ -196,6 +202,7 @@
 (use-package flycheck-color-mode-line :ensure t
   :requires flycheck
   :config
+  (setq flycheck-color-mode-line-face-to-color 'sml/filename)
   (eval-after-load "flycheck"
     '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
 )

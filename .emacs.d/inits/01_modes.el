@@ -14,35 +14,33 @@
                                (flycheck-mode 1))))
 ;; PHP
 (use-package ac-php :ensure t)
-(use-package company-php :ensure t)
+(use-package cl :ensure nil)
+(use-package company-php :ensure t
+  :config
+  (ac-php-core-eldoc-setup)
+  )
 (use-package php-mode
   :ensure t
   :mode "\\.\\(module\\|test\\|install\\|theme\\|inc\\)$"
+  :bind (:map php-mode-map
+          ("C-]" . ac-php-find-symbol-at-point) ;; goto define
+          ("C-t" . ac-php-location-stack-back)  ;; go back
+          )
   :config
   (add-hook 'php-mode-hook
           '(lambda ()
              (setq php-mode-force-pear t)
-             (setq tab-width 4)
-             (setq c-basic-offset 4)
-             (setq indent-tabs-mode nil)
              (c-set-offset 'case-label' 4)
              (c-set-offset 'arglist-intro' 4)
              (c-set-offset 'arglist-cont-nonempty' 4)
              (c-set-offset 'arglist-close' 0)
-             (require 'company-php)
-             (auto-complete-mode t)
-             (company-mode t)
-             (ac-php-core-eldoc-setup) ;; enable eldoc
              (make-local-variable 'company-backends)
              (add-to-list 'company-backends 'company-ac-php-backend)
-             ;; (define-key php-mode-map  (kbd "C-]") 'ac-php-find-symbol-at-point)   ;goto define
-             ;; (define-key php-mode-map  (kbd "C-t") 'ac-php-location-stack-back)    ;go back
              ))
   )
 
-(use-package web-mode
-  :ensure t
-  :mode "/\\(public\\|includes\\|views\\|html\\|theme\\|templates\\)/.*\\.php\\'"
+(use-package web-mode :ensure t
+  :mode "/\\(public\\|includes\\|include\\|views\\|html\\|theme\\|templates\\)/.*\\.php\\'"
   :mode "\\.erb\\'"
   :mode "\\.jsp\\'"
   :mode "\\.blade\\.php\\'"
@@ -74,19 +72,18 @@
       '(lambda ()
          (eval-after-load 'flycheck
            '(lambda ()
-              (setq flycheck-checker 'javascript-eslint)
-              ;; (setq flycheck-disabled-checkers '(javascript-jshint javascript-jscs))
-              )))))
+              (setq flycheck-checker 'javascript-eslint))))))
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . (lambda () (web-mode) (js-flycheck-settings))))
   )
 
-(use-package json-mode
-  :ensure t
+(use-package json-reformat)
+(use-package json-mode :ensure t
   :mode "\\.json\\'"
-  )
+  :init
+  (add-hook 'json-mode-hook '(lambda ()
+                               (setq js-indent-level 2))))
 
-(use-package lua-mode
-  :ensure t
+(use-package lua-mode :ensure t
   :mode "\\.lua\\'"
   :init
   (add-hook 'lua-mode-hook
@@ -94,14 +91,8 @@
              (setq lua-indent-level 2)))
   )
 
-(use-package json-mode
-  :init
-  (add-hook 'json-mode-hook '(lambda ()
-                               (setq js-indent-level 2))))
-(use-package json-reformat)
-
 ;; SQL mode
-(use-package sql
+(use-package sql :ensure t
   :config
   (add-hook 'sql-mode-hook '(lambda ()
                               (setq sql-indent-offset 2)
@@ -110,8 +101,7 @@
                               (sql-set-product "mysql")
                               (eval-after-load "sql" '(load-library "sql-indent"))
                               (sqlind-minor-mode))))
-(use-package sql-indent
-  :ensure t
+(use-package sql-indent :ensure t
   :after sql)
 
 ;; Docker
@@ -124,18 +114,18 @@
 ;; CSS
 
 ;; JS
-(use-package vue-mode
+(use-package vue-mode :ensure t
   :config
   (setq mmm-submode-decoration-level 0))
 (use-package vue-html-mode)
 
 ;; Shell mode
 (add-hook 'shell-script-mode
-          '(lambda ()
-             (setq sh-basic-offset 2)
-             (setq sh-indentation 2)
-             (setq sh-indent-for-case-label 0)
-             (setq sh-indent-for-case-alt '+)))
+  '(lambda ()
+     (setq sh-basic-offset 2)
+     (setq sh-indentation 2)
+     (setq sh-indent-for-case-label 0)
+     (setq sh-indent-for-case-alt '+)))
 
 (provide '01_modes)
 ;;; 01_modes ends here

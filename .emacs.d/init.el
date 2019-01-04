@@ -30,6 +30,11 @@
 (use-package el-init)
 (el-init-load "~/.emacs.d/inits")
 
+(use-package kaolin-themes
+  :config
+  (load-theme 'kaolin-dark t)
+  )
+
 (setq custom-file "~/.emacs.d/customized.el")
 (load custom-file)
 
