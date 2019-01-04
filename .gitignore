@@ -12,3 +12,5 @@ direnv/allow/*
 !.gnupg/*.conf
 .zsh/completion/*
 karabiner/automatic_backups
+
+iterm2/iterm2_shell_integration.zsh

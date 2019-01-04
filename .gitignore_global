@@ -1,1 +1,8 @@
 .envrc
+
+## Node
+node_modules
+
+## Emacs settings
+.dir-locals.el
+.ac-php-conf.json
