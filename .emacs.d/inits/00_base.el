@@ -227,6 +227,7 @@
 (use-package google-translate :ensure t
   :config
   (global-set-key "\C-ct" 'google-translate-smooth-translate)
+  (setq google-translate-pop-up-buffer-set-focus t)
   (defvar google-translate-translation-directions-alist
     '(("en" . "ja") ("ja" . "en") ("ja" . "vi") ("en" . "vi")))
   )
