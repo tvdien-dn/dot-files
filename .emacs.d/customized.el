@@ -18,7 +18,7 @@
  '(dired-dwim-target t)
   '(package-selected-packages
      (quote
-       (powerline rainbow-mode ivy-mode delight which-key zop-to-char dired company-php ac-php ansible flycheck-color-mode-line docker-compose-mode dockerfile-mode google-translate-smooth-ui google-translate auto-package-update magit counsel projectile fzf use-package-ensure-system-package undo-tree editorconfig framemove use-package init-loader el-init)))
+       (rainbow-mode ivy-mode delight which-key zop-to-char dired company-php ac-php ansible flycheck-color-mode-line docker-compose-mode dockerfile-mode google-translate-smooth-ui google-translate auto-package-update magit counsel projectile fzf use-package-ensure-system-package undo-tree editorconfig framemove use-package init-loader el-init)))
  '(sml/col-number-format "%3c")
  '(sml/line-number-format "%4l")
  '(sml/shorten-directory t)

@@ -128,4 +128,8 @@
      (setq sh-indent-for-case-alt '+)))
 
 (provide '01_modes)
+
+;; Gherkin/Cucumber major mode
+(use-package feature-mode
+  :mode "\\.feature\\'")
 ;;; 01_modes ends here
