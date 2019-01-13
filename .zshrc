@@ -6,6 +6,7 @@ setopt append_history
 setopt extended_history
 setopt share_history
 setopt hist_ignore_dups
+setopt hist_ignore_space
 setopt hist_ignore_all_dups
 setopt auto_cd
 setopt auto_pushd
@@ -19,7 +20,22 @@ if [ $UID = 0 ]; then
 fi
 ## zplug setting https://github.com/zplug/zplug
 export ZPLUG_HOME=/usr/local/opt/zplug
-export PATH="$PATH:/usr/local/bin/"
+typeset -U path PATH
+if [ -z $TMUX ]; then
+  export ANYENV_ROOT="$HOME/.anyenv"
+  custom_paths=($HOME/.anyenv/bin(N-/)
+                $HOME/Library/Android/sdk/platform-tools(N-/)
+                $HOME/go/bin(N-/)
+                $HOME/.gem/ruby/2.3.0/bin
+                $HOME/Library/Python/3.7/bin(N-/)
+                $HOME/Library/Python/2.7/bin(N-/)
+                /usr/local/sbin(N-/)
+                /usr/local/aws/bin(N-/)
+                /usr/local/bin(N-/)
+                /usr/local/opt/qt@5.5/bin(N-/)
+               )
+  export path=($custom_paths $path)
+fi
 if [ -e $ZPLUG_HOME/init.zsh ]; then
   source $ZPLUG_HOME/init.zsh
   zplug "zsh-users/zsh-syntax-highlighting", defer:2
@@ -43,21 +59,7 @@ bindkey -M emacs '^N' history-substring-search-down
 source $ZDOTDIR/customized.zsh-theme
 
 # Prevent duplicate defined when use tmux
-typeset -U path PATH
-if [ -z $TMUX ]; then
-  export ANYENV_ROOT="$HOME/.anyenv"
-  custom_paths=($HOME/.anyenv/bin(N-/)
-                $HOME/Library/Android/sdk/platform-tools(N-/)
-                $HOME/go/bin(N-/)
-                $HOME/.gem/ruby/2.3.0/bin
-                $HOME/Library/Python/3.7/bin(N-/)
-                $HOME/Library/Python/2.7/bin(N-/)
-                /usr/local/sbin(N-/)
-                /usr/local/aws/bin(N-/)
-               )
-                # /usr/local/share/git-core/contrib/diff-highlight(N-/)
-  export path=($custom_paths $path)
-fi
+
 eval "$(anyenv init - --no-rehash)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"
