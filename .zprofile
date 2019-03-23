@@ -1,3 +1,9 @@
+function fzf_cap() {
+  app=$(ls -1 config/deploy | grep -v -E '.rb$' |fzf)
+  set -x
+  bundle exec cap $app $@
+}
+
 function peridot_test() {
   local usage_msg="Usage:\n\t$0 docker_container_name [spec_directory_name]"
   if [ -e $1 ]; then
@@ -6,7 +12,7 @@ function peridot_test() {
   fi
   local container_name=$1
   local test_dir=${2:-spec}
-  
+
   if [ -e $PERIDOT_TEST_CMD ]; then
      echo 'Error: Environment PERIDOT_TEST_CMD is not defined.\n'
      return 1
@@ -86,6 +92,6 @@ alias mycli57='mycli -uroot -P3357 --prompt="\u@\h:\d\n>"'
 alias mycli56='mycli -uroot -P3356 --prompt="\u@\h:\d\n>"'
 alias E="SUDO_EDITOR=\"emacsclient\" sudo -e"
 # TMUX direnv https://github.com/direnv/direnv/wiki/Tmux
-alias tmux="direnv exec / tmux" 
+alias tmux="direnv exec / tmux"
 alias get_download='mv $(ls -1td ~/Downloads/*|fzf) .'
 alias fe='emacsclient -nw $(fzf +m --reverse --preview "less {}")'
