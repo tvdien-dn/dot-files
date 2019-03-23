@@ -102,12 +102,13 @@ if which pip 1>/dev/null 2>&1; then
   if [ ! -e $HOME/.config/.zsh/completion/_pip ]; then
     pip completion --zsh >> $HOME/.zsh/completion/_pip
   fi
-  source $HOME/.config/.zsh//completion/_pip 
+  source $HOME/.config/.zsh/completion/_pip 
 fi
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export GPG_TTY=$(tty)
+export PAGER='LESS= less -FXR'
 
 if [ ~/dotfiles/.zshrc -nt ~/dotfiles/.zshrc.zwc ]; then
   zcompile ~/dotfiles/.zshrc
