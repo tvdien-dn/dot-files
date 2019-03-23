@@ -6,3 +6,8 @@ node_modules
 ## Emacs settings
 .dir-locals.el
 .ac-php-conf.json
+
+## Local docker settings
+local-docker-compose.yml
+.docker/volumes/
+.docker/local/
