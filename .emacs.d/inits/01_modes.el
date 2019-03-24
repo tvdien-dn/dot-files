@@ -127,6 +127,9 @@
      (setq sh-indent-for-case-label 0)
      (setq sh-indent-for-case-alt '+)))
 
+;; AsciiDoc
+
+(use-package adoc-mode)
 (provide '01_modes)
 
 ;; Gherkin/Cucumber major mode

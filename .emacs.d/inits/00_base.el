@@ -133,6 +133,7 @@
   (set-face-attribute 'whitespace-space nil
     :background "#dddddd"
     :underline nil)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (setq whitespace-style '(face trailling tabs empty tab-mark spaces))
   (setq whitespace-action '(auto-cleanup))
   (global-whitespace-mode t))
