@@ -83,6 +83,17 @@ showSSH() {
         fi
     done
 }
+safe_ssh() {
+  local mode=${1:-on}
+  local on_regexp='s/^\(Include .*\)/#\1/g'
+  local off_regexp='s/^#\(Include .*\)/\1/g'
+  local config_path=$HOME/.ssh/config
+  [ $mode = 'on' ]  && gsed -i -e $on_regexp $config_path  && echo 'All SSH settings is OFF' && return 0;
+  [ $mode = 'off' ] && gsed -i -e $off_regexp $config_path && echo '!!! ALL SSH settings is ON !!!' && return 0;
+  echo 'Usage: safe_ssh [on|off]'
+  return 1;
+}
+
 alias fssh='ssh $(echo `cat ~/.ssh/config ~/.ssh/conf.d/*.conf|gsed -n -e "/^Host / { s/^Host \(.\+\)$/\1/g; /\*/d; s/ /\n/g;p }"|fzf --reverse`)'
 alias fdc='docker container ls -a|fzf -m --reverse|cut -d " " -f1|sed -e ":a" -e "N" -e "$!ba" -e "s/\n/ /g"'
 alias revert-tree="sort|gsed -e '1d; s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
