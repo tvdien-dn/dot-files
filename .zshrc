@@ -19,7 +19,6 @@ if [ $UID = 0 ]; then
     SAVEHIST=0
 fi
 ## zplug setting https://github.com/zplug/zplug
-export ZPLUG_HOME=/usr/local/opt/zplug
 typeset -U path PATH
 if [ -z $TMUX ]; then
   export ANYENV_ROOT="$HOME/.anyenv"
@@ -36,24 +35,11 @@ if [ -z $TMUX ]; then
                )
   export path=($custom_paths $path)
 fi
-if [ -e $ZPLUG_HOME/init.zsh ]; then
-  source $ZPLUG_HOME/init.zsh
-  zplug "zsh-users/zsh-syntax-highlighting", defer:2
-  zplug "zsh-users/zsh-history-substring-search"
-  zplug "zsh-users/zsh-completions"
-  zplug "zsh-users/zsh-autosuggestions"
-  zplug "b4b4r07/enhancd", use:init.sh
-  export ENHANCD_FILTER=fzf
-  zplug "plugins/git", from:oh-my-zsh, as:plugin
-  zplug "plugins/common-aliases", from:oh-my-zsh, as:plugin
-  zplug "plugins/emacs", from:oh-my-zsh, as:plugin
-  # zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-  zplug load
-else
-  echo 'NO ZPLUG :('
+
+
+if [ -e $CONFIG_DIR/zplug_init.sh ]; then
+   source $CONFIG_DIR/zplug_init.sh
 fi
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
 
 # load theme
 source $ZDOTDIR/customized.zsh-theme
