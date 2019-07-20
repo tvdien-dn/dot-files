@@ -106,9 +106,7 @@ alias fssh='ssh $(echo `cat ~/.ssh/config ~/.ssh/conf.d/*.conf|gsed -n -e "/^Hos
 alias fdc='docker container ls -a|fzf -m --reverse|cut -d " " -f1|sed -e ":a" -e "N" -e "$!ba" -e "s/\n/ /g"'
 alias revert-tree="sort|gsed -e '1d; s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
 alias rcolor="gsed -r 's/\x1B\[[0-9;]+[mGK]//g'"
-alias tree='tree -C --dirsfirst'
-alias mycli57='mycli -uroot -P3357 --prompt="\u@\h:\d\n>"'
-alias mycli56='mycli -uroot -P3356 --prompt="\u@\h:\d\n>"'
+alias tree='tree -FANC --dirsfirst'
 alias E="SUDO_EDITOR=\"emacsclient\" sudo -e"
 # TMUX direnv https://github.com/direnv/direnv/wiki/Tmux
 alias tmux="direnv exec / tmux"
