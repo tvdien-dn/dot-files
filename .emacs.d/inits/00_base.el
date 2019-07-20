@@ -238,5 +238,17 @@
   (list 427110 1469889687))
   )
 
+;;Quickrun
+(use-package quickrun
+  :config
+  (setq quickrun-focus-p nil))
 (provide '00_base)
+
+(use-package highlight-indent-guides
+  :config
+  (setq highlight-indent-guides-character ?\|)
+  )
+
+(use-package unicode-fonts)
+(use-package indium)
 ;;; 00_base ends here
