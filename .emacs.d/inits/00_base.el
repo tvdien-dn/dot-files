@@ -232,6 +232,11 @@
   (defvar google-translate-translation-directions-alist
     '(("en" . "ja") ("ja" . "en") ("ja" . "vi") ("en" . "vi")))
   )
+(eval-after-load "google-translate"
+  '(defun google-translate--get-b-d1 ()
+    ;; TKK='427110.1469889687'
+  (list 427110 1469889687))
+  )
 
 (provide '00_base)
 ;;; 00_base ends here
