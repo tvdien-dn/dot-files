@@ -59,9 +59,10 @@ bindkey -M emacs '^N' history-substring-search-down
 source $ZDOTDIR/customized.zsh-theme
 
 # Prevent duplicate defined when use tmux
-
-eval "$(anyenv init - --no-rehash)"
-eval "$(pyenv virtualenv-init -)"
+if [ -n "$(which anyenv)" -a "$(which anyenv)" != 'anyenv not found' ]; then
+  eval "$(anyenv init - --no-rehash)"
+  eval "$(pyenv virtualenv-init -)"
+fi;
 eval "$(direnv hook zsh)"
 
 typeset -U path PATH
@@ -102,7 +103,7 @@ if which pip 1>/dev/null 2>&1; then
   if [ ! -e $HOME/.config/.zsh/completion/_pip ]; then
     pip completion --zsh >> $HOME/.zsh/completion/_pip
   fi
-  source $HOME/.config/.zsh/completion/_pip 
+  source $HOME/.config/.zsh/completion/_pip
 fi
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=true

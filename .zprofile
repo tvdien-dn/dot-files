@@ -1,7 +1,15 @@
-function fzf_cap() {
+function fcap() {
   app=$(ls -1 config/deploy | grep -v -E '.rb$' |fzf)
-  set -x
-  bundle exec cap $app $@
+  printf "$app was selected to $@? Should i continue that? [y/N]:"
+  read confirm
+  case $confirm in
+    y)
+      bundle exec cap $app $@
+      ;;
+    *)
+      echo Nothing had done. Bye!!!
+      ;;
+  esac
 }
 
 function peridot_test() {
