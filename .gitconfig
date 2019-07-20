@@ -33,3 +33,14 @@
   changeHunkIndicators = false
   markEmptyLines = false
   useUnicodeRuler = false
+
+# http://jonas.nitro.dk/tig/tigrc.5.html
+[tig]
+  vertical-split = no
+  split-view-height = 75%
+  blame-view = \
+    date:default \
+    author:abbreviated \
+    file-name:auto \
+    id:yes,color \
+    line-number:yes,interval=5 text
