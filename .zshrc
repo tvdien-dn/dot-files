@@ -100,3 +100,7 @@ export PAGER='LESS= less -FXR'
 if [ ~/dotfiles/.zshrc -nt ~/dotfiles/.zshrc.zwc ]; then
   zcompile ~/dotfiles/.zshrc
 fi
+
+if [ -f $(brew --prefix)/etc/brew-wrap ];then
+  source $(brew --prefix)/etc/brew-wrap
+fi

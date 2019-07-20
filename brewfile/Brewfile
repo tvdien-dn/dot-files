@@ -1,0 +1,123 @@
+
+# tap repositories and their packages
+
+tap homebrew/core
+brew adns
+brew anyenv
+brew autoconf
+brew automake
+brew bdw-gc
+brew cmake
+brew colordiff
+brew diff-so-fancy
+brew direnv
+brew emacs
+brew fontconfig
+brew freetype
+brew fzf
+brew gawk
+brew gd
+brew gdbm
+brew gettext
+brew ghq
+brew gibo
+brew gist
+brew git
+brew git-flow-avh
+brew gitleaks
+brew glib
+brew gmp
+brew gnu-getopt
+brew gnu-sed
+brew gnupg
+brew gnutls
+brew gperftools
+brew graphviz
+brew gts
+brew htop
+brew hub
+brew icu4c
+brew imagemagick@6
+brew jasper
+brew jpeg
+brew jq
+brew libassuan
+brew libevent
+brew libffi
+brew libgcrypt
+brew libgpg-error
+brew libiconv
+brew libksba
+brew libmagic
+brew libpng
+brew libtasn1
+brew libtiff
+brew libtool
+brew libunistring
+brew libusb
+brew libxml2
+brew libxslt
+brew little-cms2
+brew mas
+brew mpfr
+brew mycli
+brew mysql
+brew mysql@5.6
+brew mysql@5.7
+brew ncurses
+brew netpbm
+brew nettle
+brew nginx
+brew nkf
+brew nmap
+brew node
+brew npth
+brew oniguruma
+brew openjpeg
+brew openssl
+brew p11-kit
+brew pcre
+brew pcre2
+brew pinentry
+brew pkg-config
+brew python
+brew readline
+brew reattach-to-user-namespace
+brew sqlite
+brew sslscan
+brew telnet
+brew the_silver_searcher
+brew tig
+brew tmux --with-utf8proc
+brew trash
+brew tree
+brew unar
+brew unbound
+brew utf8proc
+brew w3m
+brew webp
+brew xz
+brew yarn
+brew zplug
+brew zsh
+
+tap homebrew/services
+
+tap homebrew/cask
+
+tap rcmdnk/file
+brew brew-file
+
+tap tkengo/highway
+brew highway
+
+# Other Homebrew packages
+brew doxygen@1.8
+brew libevent@2.2
+
+# App Store applications
+appstore 1295203466 Microsoft Remote Desktop (10.2.13)
+appstore 409203825 Numbers (6.1)
+appstore 803453959 Slack (4.0.0)
+appstore 1278508951 Trello (2.10.14)
+appstore 497799835 Xcode (10.2.1)
