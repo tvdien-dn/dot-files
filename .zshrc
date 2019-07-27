@@ -104,3 +104,7 @@ fi
 if [ -f $(brew --prefix)/etc/brew-wrap ];then
   source $(brew --prefix)/etc/brew-wrap
 fi
+
+# FIXME: emove alias of find added by zplug/common-aliases
+unalias fd 2>/dev/null
+unalias ff 2>/dev/null

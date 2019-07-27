@@ -12,6 +12,7 @@ brew colordiff
 brew diff-so-fancy
 brew direnv
 brew emacs
+brew fd
 brew fontconfig
 brew freetype
 brew fzf
