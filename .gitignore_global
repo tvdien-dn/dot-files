@@ -11,3 +11,8 @@ node_modules
 local-docker-compose.yml
 .docker/volumes/
 .docker/local/
+
+## Ctags
+.ctags
+TAGS
+tags

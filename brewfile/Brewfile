@@ -9,6 +9,7 @@ brew automake
 brew bdw-gc
 brew cmake
 brew colordiff
+brew ctags
 brew diff-so-fancy
 brew direnv
 brew emacs
