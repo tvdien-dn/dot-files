@@ -34,7 +34,10 @@
                                          try-expand-line
                                          try-complete-lisp-symbol-partially
                                          try-complete-lisp-symbol))
-(global-set-key (kbd "M-/") #'hippie-expand)
+(bind-key "M-/" #'hippie-expand)
+
+;; iBuffer
+(bind-key "C-x C-b" 'ibuffer)
 
 ;; swap left-option and left-command keys
 (when (eq system-type 'darwin)
@@ -158,10 +161,12 @@
 
 (use-package projectile
   :delight
+  :bind-keymap (("C-c p" . projectile-command-map)
+                ("s-p" . projectile-command-map))
   :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (setq projectile-project-search-path '("~/projects"))
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-switch-project-action #'projectile-dired)
   (projectile-mode +1))
 
 ;; (use-package tramp
@@ -170,26 +175,33 @@
 
 (use-package ivy :delight)
 (use-package counsel
+  :bind (
+          ("\C-s" . swiper)
+          ("M-x" . counsel-M-x)
+          ("C-x C-f" . counsel-find-file)
+          ("<f1> f" . counsel-describe-function)
+          ("<f1> v" . counsel-describe-variable)
+          ("<f1> l" . counsel-find-library)
+          ("<f2> i" . counsel-info-lookup-symbol)
+          ("<f2> u" . counsel-unicode-char)
+          ("C-c g" . counsel-git)
+          ("C-c j" . counsel-git-grep)
+          ("C-c k" . counsel-ag)
+          ("C-x l" . counsel-locate)
+          (:map minibuffer-local-map ("C-r" . counsel-minibuffer-history))
+          )
   :config
   (ivy-mode t)
   (defvar ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t)
-  (global-set-key "\C-s" 'swiper)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c k") 'counsel-ag)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox
-  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
   )
 
+(use-package counsel-etags
+  :config
+  :bind ("C-c ]" . counsel-etags-find-tag-at-point))
+(use-package counsel-projectile
+  :config
+  (counsel-projectile-mode))
 (use-package direnv
   :config
   (direnv-mode))
@@ -227,7 +239,7 @@
 ;; Google translate settings
 (use-package google-translate :ensure t
   :config
-  (global-set-key "\C-ct" 'google-translate-smooth-translate)
+  (bind-key "\C-ct" 'google-translate-smooth-translate)
   (setq google-translate-pop-up-buffer-set-focus t)
   (defvar google-translate-translation-directions-alist
     '(("en" . "ja") ("ja" . "en") ("ja" . "vi") ("en" . "vi")))
