@@ -112,4 +112,4 @@ alias E="SUDO_EDITOR=\"emacsclient\" sudo -e"
 alias tmux="direnv exec / tmux"
 alias get_download='mv $(ls -1td ~/Downloads/*|fzf) .'
 alias fe='emacsclient -nw $(fzf +m --reverse --preview "less {}")'
-alias pcd='cd $(ghq root)/$(ghq list|fzf)'
+alias pcd='cd "$(ghq list -p|fzf)"'

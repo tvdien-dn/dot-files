@@ -90,7 +90,6 @@ brew sslscan
 brew telnet
 brew the_silver_searcher
 brew tig
-brew tmux --with-utf8proc
 brew trash
 brew tree
 brew unar
@@ -113,9 +112,10 @@ brew brew-file
 tap tkengo/highway
 brew highway
 
-# Other Homebrew packages
+tap z80oolong/tmux
 brew doxygen@1.8
 brew libevent@2.2
+brew tmux
 
 # App Store applications
 appstore 1295203466 Microsoft Remote Desktop (10.2.13)

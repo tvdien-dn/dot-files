@@ -55,8 +55,8 @@ typeset -U path PATH
 
 export fpath=($fpath $HOME/.config/.zsh/completion(N-/))
 
-if [ -e $CONFIG_DIR/iterm2/iterm2_shell_integration.zsh ]; then
-  source $CONFIG_DIR/iterm2/iterm2_shell_integration.zsh
+if [ -e $HOME/.iterm2_shell_integration.zsh ]; then
+  source $HOME/.iterm2_shell_integration.zsh
 fi
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'

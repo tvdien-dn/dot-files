@@ -2,6 +2,7 @@
 
 /.tmux/plugins/
 /.anyenv/
+anyenv
 .zshenv
 *.zwc
 .zcompdump
@@ -13,8 +14,7 @@ direnv/allow/*
 .zsh/completion/*
 karabiner/automatic_backups
 
-iterm2/iterm2_shell_integration.zsh
-
 # emac settings
 .emacs.d/eshell/lastdir
 .emacs.d/eshell/history
+.emacs.d/bookmarks
