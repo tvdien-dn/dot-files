@@ -155,10 +155,21 @@
 
 (use-package fzf
   :ensure-system-package fzf
-  :bind ("C-x p" . fzf-git)
+  :bind ("C-x p" . fzf-all-file)
+  :functions
+  fzf/start
+  :init
+  (eval-when-compile (require 'fzf))
+  (defun fzf-all-file ()
+    "Get all files."
+    (interactive)
+    (fzf/start
+      default-directory
+      (concat "ag -a --hidden -g '' " (ido-read-directory-name "Directory: "))))
   :config
-  (setq fzf/args "-x --color 16 --print-query"))
-
+  (setq fzf/args "-x --color 16 --print-query")
+)
+;;; projectile
 (use-package projectile
   :delight
   :bind-keymap (("C-c p" . projectile-command-map)
