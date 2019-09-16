@@ -2,6 +2,18 @@
 ;;; Commentary:
 
 ;;; Code:
+
+;; Python
+
+(use-package python-mode
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook
+    '(lambda ()
+       (setq python-indent-offset 4)
+      )
+   )
+)
 ;; Ruby
 (use-package ruby-mode
   :ensure t
@@ -57,7 +69,7 @@
        (setq web-mode-code-indent-offset 2)
        (setq web-mode-sql-indent-offset 2)
        (setq web-mode-html-offset   2)
-       (setq web-mode-script-offset 2)
+       ;; (setq web-mode-script-offset 2)
        (setq indent-tabs-mode nil)
        (setq tab-width 2)
        (setq web-mode-enable-auto-closing t) ;; 自動HTMLタグを閉じる
