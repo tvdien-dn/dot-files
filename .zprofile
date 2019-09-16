@@ -79,7 +79,13 @@ fkill() {
   fi
 }
 
-function git() { hub "$@" }
+function git() {
+  if (which hub 1>/dev/null); then
+    hub "$@"
+  else
+    /usr/bin/git "$@"
+  fi
+}
 
 showSSH() {
     local search_options=$1
