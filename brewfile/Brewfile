@@ -6,6 +6,7 @@ brew adns
 brew anyenv
 brew autoconf
 brew automake
+brew aws-shell
 brew bdw-gc
 brew cmake
 brew colordiff
@@ -99,6 +100,7 @@ brew w3m
 brew webp
 brew xz
 brew yarn
+brew zlib
 brew zplug
 brew zsh
 
