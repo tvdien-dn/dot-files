@@ -108,6 +108,10 @@ safe_ssh() {
   return 1;
 }
 
+if [ -e '/home/linuxbrew/.linuxbrew/bin/brew' ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
 alias fssh='ssh $(echo `cat ~/.ssh/config ~/.ssh/conf.d/*.conf|gsed -n -e "/^Host / { s/^Host \(.\+\)$/\1/g; /\*/d; s/ /\n/g;p }"|fzf --reverse`)'
 alias fdc='docker container ls -a|fzf -m --reverse|cut -d " " -f1|sed -e ":a" -e "N" -e "$!ba" -e "s/\n/ /g"'
 alias revert-tree="sort|gsed -e '1d; s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
