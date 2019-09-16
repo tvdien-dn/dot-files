@@ -6,9 +6,9 @@ anyenv
 .zshenv
 *.zwc
 .zcompdump
+hammerspoon/Spoons
 
 direnv/allow/*
-
 .gnupg/*
 !.gnupg/*.conf
 .zsh/completion/*
@@ -18,3 +18,6 @@ karabiner/automatic_backups
 .emacs.d/eshell/lastdir
 .emacs.d/eshell/history
 .emacs.d/bookmarks
+
+gcloud
+hub

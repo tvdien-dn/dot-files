@@ -32,6 +32,7 @@ if [ -z $TMUX ]; then
                 /usr/local/aws/bin(N-/)
                 /usr/local/bin(N-/)
                 /usr/local/opt/qt@5.5/bin(N-/)
+                /usr/local/opt/openssl/bin(N-/)
                )
   export path=($custom_paths $path)
 fi
@@ -60,6 +61,7 @@ if [ -e $HOME/.iterm2_shell_integration.zsh ]; then
 fi
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAUTL_OPTS='--layout=reverse-list'
 export LESS='-gj10 -RNC'
 export LESSOPEN="|$HOME/.config/less_pygmentize.sh %s"
 # alias tmux='direnv exec / tmux'
@@ -108,3 +110,9 @@ fi
 # FIXME: emove alias of find added by zplug/common-aliases
 unalias fd 2>/dev/null
 unalias ff 2>/dev/null
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/.local/lib/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.local/lib/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/.local/lib/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.local/lib/google-cloud-sdk/completion.zsh.inc"; fi
