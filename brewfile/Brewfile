@@ -2,6 +2,13 @@
 # tap repositories and their packages
 
 tap homebrew/core
+tap homebrew/services
+tap homebrew/cask
+tap rcmdnk/file
+tap tkengo/highway
+tap z80oolong/tmux
+
+brew brew-file
 brew adns
 brew anyenv
 brew autoconf
@@ -91,6 +98,7 @@ brew sslscan
 brew telnet
 brew the_silver_searcher
 brew tig
+brew tmux
 brew trash
 brew tree
 brew unar
@@ -103,25 +111,12 @@ brew yarn
 brew zlib
 brew zplug
 brew zsh
-
-tap homebrew/services
-
-tap homebrew/cask
-
-tap rcmdnk/file
-brew brew-file
-
-tap tkengo/highway
 brew highway
 
-tap z80oolong/tmux
+# Other Homebrew packages
 brew doxygen@1.8
 brew libevent@2.2
-brew tmux
 
-# App Store applications
-appstore 1295203466 Microsoft Remote Desktop (10.2.13)
-appstore 409203825 Numbers (6.1)
-appstore 803453959 Slack (4.0.0)
-appstore 1278508951 Trello (2.10.14)
-appstore 497799835 Xcode (10.2.1)
+# Other Cask applications
+cask keepassxc
+cask google-cloud-sdk
