@@ -37,7 +37,6 @@ if [ -z $TMUX ]; then
   export path=($custom_paths $path)
 fi
 
-
 if [ -e $CONFIG_DIR/zplug_init.sh ]; then
    source $CONFIG_DIR/zplug_init.sh
 fi
@@ -49,7 +48,7 @@ source $ZDOTDIR/customized.zsh-theme
 if [ -n "$(which anyenv)" -a "$(which anyenv)" != 'anyenv not found' ]; then
   eval "$(anyenv init - --no-rehash)"
   eval "$(pyenv virtualenv-init -)"
-fi;
+fi
 eval "$(direnv hook zsh)"
 
 typeset -U path PATH
@@ -77,7 +76,7 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:manuals' separate-sections true
-zstyle :compinstall filename '/Users/mars_tran/dotfiles/.zshrc'
+zstyle :compinstall filename '$HOME/.config/.zshrc'
 
 autoload -Uz compinit
 compinit -i
@@ -89,19 +88,16 @@ fi
 
 if which pip 1>/dev/null 2>&1; then
   if [ ! -e $HOME/.config/.zsh/completion/_pip ]; then
-    pip completion --zsh >> $HOME/.zsh/completion/_pip
+    mkdir -p $HOME/.config/.zsh/completion
+    pip completion --zsh >> $HOME/.config/.zsh/completion/_pip
   fi
   source $HOME/.config/.zsh/completion/_pip
 fi
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=30
 export GPG_TTY=$(tty)
 export PAGER='LESS= less -FXR'
-
-if [ ~/dotfiles/.zshrc -nt ~/dotfiles/.zshrc.zwc ]; then
-  zcompile ~/dotfiles/.zshrc
-fi
 
 if [ -f $(brew --prefix)/etc/brew-wrap ];then
   source $(brew --prefix)/etc/brew-wrap
@@ -116,3 +112,7 @@ if [ -f "$HOME/.local/lib/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.
 
 # The next line enables shell command completion for gcloud.
 if [ -f "$HOME/.local/lib/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.local/lib/google-cloud-sdk/completion.zsh.inc"; fi
+
+if [ ~/.config/.zshrc -nt ~/.config/.zshrc.zwc ]; then
+  zcompile ~/.config/.zshrc
+fi
