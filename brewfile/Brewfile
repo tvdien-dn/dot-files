@@ -111,6 +111,7 @@ brew 'zlib'
 brew 'zplug'
 brew 'zsh'
 brew 'highway'
+brew 'ranger'
 
 # Other Homebrew packages
 brew 'doxygen@1.8'
