@@ -97,7 +97,7 @@ brew 'sslscan'
 brew 'telnet'
 brew 'the_silver_searcher'
 brew 'tig'
-brew 'tmux'
+brew 'z80oolong/tmux/tmux', args: ['HEAD']
 brew 'trash'
 brew 'tree'
 brew 'unar'
