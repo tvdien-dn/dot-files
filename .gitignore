@@ -19,5 +19,8 @@ karabiner/automatic_backups
 .emacs.d/eshell/history
 .emacs.d/bookmarks
 
+/htop/htoprc
+/configstore/update-notifier-npm.json
+
 gcloud
 hub
