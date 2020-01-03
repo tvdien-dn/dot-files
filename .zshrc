@@ -62,7 +62,7 @@ fi
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_DEFAUTL_OPTS='--layout=reverse-list'
 export LESS='-gj10 -RNC'
-export LESSOPEN="|$HOME/.config/less_pygmentize.sh %s"
+export LESSOPEN="|$HOME/.config/bin/less_pygmentize.sh %s"
 # alias tmux='direnv exec / tmux'
 
 # The following lines were added by compinstall
