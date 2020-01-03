@@ -97,6 +97,7 @@ showSSH() {
         fi
     done
 }
+
 safe_ssh() {
   local mode=${1:-on}
   local on_regexp='s/^\(Include .*\)/#\1/g'
@@ -108,10 +109,6 @@ safe_ssh() {
   return 1;
 }
 
-if [ -e '/home/linuxbrew/.linuxbrew/bin/brew' ]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-fi
-
 alias fssh='ssh $(echo `cat ~/.ssh/config ~/.ssh/conf.d/*.conf|gsed -n -e "/^Host / { s/^Host \(.\+\)$/\1/g; /\*/d; s/ /\n/g;p }"|fzf --reverse`)'
 alias fdc='docker container ls -a|fzf -m --reverse|cut -d " " -f1|sed -e ":a" -e "N" -e "$!ba" -e "s/\n/ /g"'
 alias revert-tree="sort|gsed -e '1d; s/^\.//;s/\/\([^/]*\)$/|--\1/;s/\/[^/|]*/|  /g'"
@@ -120,6 +117,14 @@ alias tree='tree -FANC --dirsfirst'
 alias E="SUDO_EDITOR=\"emacsclient\" sudo -e"
 # TMUX direnv https://github.com/direnv/direnv/wiki/Tmux
 alias tmux="direnv exec / tmux"
-alias get_download='mv $(ls -1td ~/Downloads/*|fzf) .'
 alias fe='emacsclient -nw $(fzf +m --reverse --preview "less {}")'
 alias pcd='cd "$(ghq list -p|fzf)"'
+
+case "${OSTYPE}" in
+darwin*)
+  source $HOME/.config/.zprofile_darwin
+  ;;
+linux*)
+  source $HOME/.config/.zprofile_linux
+  ;;
+esac

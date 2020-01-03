@@ -1,0 +1,2 @@
+alias get_download='mv $(ls -1td ~/Downloads/*|fzf) .'
+alias ls="ls -G"
