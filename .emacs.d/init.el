@@ -36,7 +36,8 @@
   )
 
 (setq custom-file "~/.emacs.d/customized.el")
-(load custom-file)
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 (provide 'init)
 ;;; init ends here

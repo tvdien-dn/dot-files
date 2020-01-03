@@ -18,6 +18,8 @@ karabiner/automatic_backups
 .emacs.d/eshell/lastdir
 .emacs.d/eshell/history
 .emacs.d/bookmarks
+.emacs.d/transient/history.el
+.emacs.d/customized.el
 
 /htop/htoprc
 /configstore/update-notifier-npm.json
