@@ -1,0 +1,8 @@
+{
+    "editor.cursorStyle": "block",
+    "editor.wordWrapColumn": 120,
+    "workbench.sideBar.location": "right",
+    "terminal.external.osxExec": "iTerm.app",
+    "window.zoomLevel": 0,
+    "editor.minimap.enabled": false
+}
