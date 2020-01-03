@@ -107,11 +107,10 @@ fi
 unalias fd 2>/dev/null
 unalias ff 2>/dev/null
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/.local/lib/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/.local/lib/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/.local/lib/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/.local/lib/google-cloud-sdk/completion.zsh.inc"; fi
+if [ -d '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk' ]; then
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+fi
 
 if [ ~/.config/.zshrc -nt ~/.config/.zshrc.zwc ]; then
   zcompile ~/.config/.zshrc
