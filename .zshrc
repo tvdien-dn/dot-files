@@ -41,8 +41,8 @@ if [ -e $CONFIG_DIR/zplug_init.sh ]; then
    source $CONFIG_DIR/zplug_init.sh
 fi
 
-# load theme
-source $ZDOTDIR/customized.zsh-theme
+#  pure prompt with time
+PROMPT='%F{white}%* '$PROMPT
 
 # Prevent duplicate defined when use tmux
 if [ -n "$(which anyenv)" -a "$(which anyenv)" != 'anyenv not found' ]; then

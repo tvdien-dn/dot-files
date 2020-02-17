@@ -10,6 +10,8 @@ if [ -e $ZPLUG_HOME/init.zsh ]; then
   zplug "plugins/git", from:oh-my-zsh, as:plugin
   zplug "plugins/common-aliases", from:oh-my-zsh, as:plugin
   zplug "plugins/emacs", from:oh-my-zsh, as:plugin
+  zplug mafredri/zsh-async, from:github
+  zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
 
   if ! zplug check; then
     zplug install
