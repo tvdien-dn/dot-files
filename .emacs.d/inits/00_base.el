@@ -270,6 +270,9 @@
 (use-package highlight-indent-guides
   :config
   (setq highlight-indent-guides-character ?\|)
+  (setq highlight-indent-guides-method 'character)
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+  (add-hook 'yaml-mode-hook 'highlight-indent-guides-mode)
   )
 
 (use-package unicode-fonts)
