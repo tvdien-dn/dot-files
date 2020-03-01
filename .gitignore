@@ -26,3 +26,5 @@ karabiner/automatic_backups
 
 gcloud
 hub
+/gh/config.yml
+/gh/state.yml
