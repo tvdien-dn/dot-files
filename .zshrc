@@ -19,23 +19,26 @@ if [ $UID = 0 ]; then
     SAVEHIST=0
 fi
 ## zplug setting https://github.com/zplug/zplug
-typeset -U path PATH
-if [ -z $TMUX ]; then
-  export ANYENV_ROOT="$HOME/.anyenv"
-  custom_paths=($HOME/.anyenv/bin(N-/)
-                $HOME/Library/Android/sdk/platform-tools(N-/)
-                $HOME/go/bin(N-/)
-                $HOME/.gem/ruby/2.3.0/bin
-                $HOME/Library/Python/3.7/bin(N-/)
-                $HOME/Library/Python/2.7/bin(N-/)
-                /usr/local/sbin(N-/)
-                /usr/local/aws/bin(N-/)
-                /usr/local/bin(N-/)
-                /usr/local/opt/qt@5.5/bin(N-/)
-                /usr/local/opt/openssl/bin(N-/)
-               )
-  export path=($custom_paths $path)
-fi
+# typeset -U path PATH
+# if [ ! -z $TMUX ]; then
+#   PATH=''
+#   source /etc/profile
+# fi
+
+export ANYENV_ROOT="$HOME/.anyenv"
+custom_paths=($HOME/.anyenv/bin(N-/)
+              $HOME/Library/Android/sdk/platform-tools(N-/)
+              $HOME/go/bin(N-/)
+              # $HOME/.gem/ruby/2.3.0/bin
+              # $HOME/Library/Python/3.7/bin(N-/)
+              $HOME/Library/Python/2.7/bin(N-/)
+              /usr/local/sbin(N-/)
+              /usr/local/aws/bin(N-/)
+              /usr/local/bin(N-/)
+              /usr/local/opt/qt@5.5/bin(N-/)
+              /usr/local/opt/openssl/bin(N-/)
+             )
+export path=($custom_paths $path)
 
 if [ -e $CONFIG_DIR/zplug_init.sh ]; then
    source $CONFIG_DIR/zplug_init.sh
