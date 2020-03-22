@@ -28,3 +28,5 @@ gcloud
 hub
 /gh/config.yml
 /gh/state.yml
+
+Brewfile.lock.json
