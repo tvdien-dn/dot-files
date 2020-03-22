@@ -6,6 +6,7 @@ tap 'homebrew/cask'
 tap 'rcmdnk/file'
 tap 'tkengo/highway'
 tap 'z80oolong/tmux'
+tap 'aws/tap'
 
 brew 'brew-file'
 brew 'gcc'
@@ -13,7 +14,6 @@ brew 'adns'
 brew 'anyenv'
 brew 'autoconf'
 brew 'automake'
-brew 'aws-shell'
 brew 'bdw-gc'
 brew 'cmake'
 brew 'colordiff'
@@ -115,6 +115,10 @@ brew 'zplug'
 brew 'zsh'
 brew 'highway'
 brew 'ranger'
+
+## For AWS CLI
+brew 'aws-shell'
+brew 'aws-sam-cli'
 
 # Other Homebrew packages
 brew 'doxygen@1.8'
