@@ -1,3 +1,4 @@
+asciidoctor.asciidoctor-vscode
 bung87.rails
 bung87.vscode-gemfile
 castwide.solargraph
@@ -13,6 +14,7 @@ joaompinto.asciidoctor-vscode
 misogi.ruby-rubocop
 ms-azuretools.vscode-docker
 ms-python.python
+ms-vscode-remote.remote-containers
 octref.vetur
 rebornix.ruby
 redhat.vscode-yaml
