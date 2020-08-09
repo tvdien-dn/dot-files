@@ -1,8 +1,24 @@
 {
     "editor.cursorStyle": "block",
-    "editor.wordWrapColumn": 120,
-    "workbench.sideBar.location": "right",
+    "editor.minimap.enabled": false,
+    "editor.wordWrapColumn": 150,
+    "files.insertFinalNewline": true,
     "terminal.external.osxExec": "iTerm.app",
-    "window.zoomLevel": 0,
-    "editor.minimap.enabled": false
+    "terminal.integrated.commandsToSkipShell": [
+      "-workbench.action.quickOpenView"
+     ],
+    "terminal.integrated.macOptionClickForcesSelection": true,
+    "terminal.integrated.shell.osx": "/usr/local/bin/zsh",
+    "terminal.integrated.shellArgs.osx": [
+      "-l"
+    ],
+    "window.zoomLevel": -1,
+    "window.openFilesInNewWindow": "off",
+    "workbench.activityBar.visible": false,
+    "workbench.sideBar.location": "left",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.colorTheme": "Night Owl",
+    // for extetions
+    "path-autocomplete.extensionOnImport": true,
+    "path-autocomplete.triggerOutsideStrings": true,
 }

@@ -1,0 +1,15 @@
+[{
+  "key": "cmd+q",
+  "command": "-workbench.action.quit"
+},
+{
+  "key": "shift+cmd+]",
+  "command": "workbench.action.terminal.focusNext",
+  "when": "terminalFocus"
+},
+{
+  "key": "shift+cmd+[",
+  "command": "workbench.action.terminal.focusPrevious",
+  "when": "terminalFocus"
+}
+]
