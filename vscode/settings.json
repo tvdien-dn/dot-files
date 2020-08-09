@@ -1,8 +1,10 @@
 {
     "editor.cursorStyle": "block",
     "editor.minimap.enabled": false,
+    "editor.renderControlCharacters": true,
     "editor.wordWrapColumn": 150,
     "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
     "terminal.external.osxExec": "iTerm.app",
     "terminal.integrated.commandsToSkipShell": [
       "-workbench.action.quickOpenView"
