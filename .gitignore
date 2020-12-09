@@ -30,3 +30,4 @@ hub
 /gh/state.yml
 
 Brewfile.lock.json
+.ghqconfig

@@ -1,0 +1,9 @@
+[tig]
+  vertical-split = no
+  split-view-height = 75%
+  blame-view = \
+    date:default \
+    author:abbreviated \
+    file-name:auto \
+    id:yes,color \
+    line-number:yes,interval=5 text
