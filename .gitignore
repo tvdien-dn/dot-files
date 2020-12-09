@@ -5,7 +5,7 @@
 anyenv
 .zshenv
 *.zwc
-.zcompdump
+.zcompdump*
 hammerspoon/Spoons
 
 direnv/allow/*
@@ -31,3 +31,6 @@ hub
 
 Brewfile.lock.json
 .ghqconfig
+
+pgcli/history
+pgcli/log
