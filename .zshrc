@@ -31,6 +31,7 @@ custom_paths=($HOME/.anyenv/bin(N-/)
               $HOME/go/bin(N-/)
               # $HOME/.gem/ruby/2.3.0/bin
               # $HOME/Library/Python/3.7/bin(N-/)
+              $HOME/.local/bin(N-/)
               $HOME/Library/Python/2.7/bin(N-/)
               /usr/local/sbin(N-/)
               /usr/local/aws/bin(N-/)
@@ -45,6 +46,7 @@ if [ -e $CONFIG_DIR/zplug_init.sh ]; then
 fi
 
 #  pure prompt with time
+export PURE_PROMPT_SYMBOL=">"
 PROMPT='%F{white}%* '$PROMPT
 
 # Prevent duplicate defined when use tmux
