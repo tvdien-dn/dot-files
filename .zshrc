@@ -31,6 +31,7 @@ custom_paths=($HOME/.anyenv/bin(N-/)
               $HOME/go/bin(N-/)
               # $HOME/.gem/ruby/2.3.0/bin
               # $HOME/Library/Python/3.7/bin(N-/)
+              $HOME/.local/bin(N-/)
               $HOME/Library/Python/2.7/bin(N-/)
               /usr/local/sbin(N-/)
               /usr/local/aws/bin(N-/)
@@ -45,6 +46,7 @@ if [ -e $CONFIG_DIR/zplug_init.sh ]; then
 fi
 
 #  pure prompt with time
+export PURE_PROMPT_SYMBOL=">"
 PROMPT='%F{white}%* '$PROMPT
 
 # Prevent duplicate defined when use tmux
@@ -68,7 +70,10 @@ export LESS='-gj10 -RNC'
 if [ -f $HOME/.config/bin/less_pygmentize.sh ] && [ ! -z "$(pip --no-python-version-warning list|grep Pygments)" ]; then
   export LESSOPEN="|$HOME/.config/bin/less_pygmentize.sh %s"
 fi
-# alias tmux='direnv exec / tmux'
+export PAGER='less -FXR'
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
+export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=30
+export GPG_TTY=$(tty)
 
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
@@ -99,23 +104,10 @@ if which pip 1>/dev/null 2>&1; then
   source $HOME/.config/.zsh/completion/_pip
 fi
 
-export ZSH_AUTOSUGGEST_USE_ASYNC=true
-export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=30
-export GPG_TTY=$(tty)
-export PAGER='LESS= less -FXR'
-
-if [ -f $(brew --prefix)/etc/brew-wrap ];then
-  source $(brew --prefix)/etc/brew-wrap
-fi
-
 # FIXME: emove alias of find added by zplug/common-aliases
 unalias fd 2>/dev/null
 unalias ff 2>/dev/null
-
-if [ -d '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk' ]; then
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-fi
+alias tmux='direnv exec / tmux'
 
 if [ ~/.config/.zshrc -nt ~/.config/.zshrc.zwc ]; then
   zcompile ~/.config/.zshrc

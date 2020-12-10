@@ -1,5 +1,6 @@
-if [ -e '/home/linuxbrew/.linuxbrew/bin/brew' ]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+if [ -x "`which go`" ]; then
+  export GOPATH=$HOME/go
+  export PATH="$GOPATH/bin:$PATH"
 fi
 
 alias ls="ls --color"

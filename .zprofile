@@ -119,7 +119,8 @@ alias E="SUDO_EDITOR=\"emacsclient\" sudo -e"
 alias tmux="direnv exec / tmux"
 alias fe='emacsclient -nw $(fzf +m --reverse --preview "less {}")'
 alias pcd='cd "$(ghq list -p|fzf)"'
-
+alias pip="pip3"
+alias docker-cleanup="docker container ls -a -q --filter status=exited|xargs docker container rm"
 case "${OSTYPE}" in
 darwin*)
   source $HOME/.config/.zprofile_darwin
