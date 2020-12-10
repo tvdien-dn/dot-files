@@ -106,18 +106,10 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=30
 export GPG_TTY=$(tty)
 export PAGER='LESS= less -FXR'
 
-if [ -f $(brew --prefix)/etc/brew-wrap ];then
-  source $(brew --prefix)/etc/brew-wrap
-fi
 
 # FIXME: emove alias of find added by zplug/common-aliases
 unalias fd 2>/dev/null
 unalias ff 2>/dev/null
-
-if [ -d '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk' ]; then
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-fi
 
 if [ ~/.config/.zshrc -nt ~/.config/.zshrc.zwc ]; then
   zcompile ~/.config/.zshrc
