@@ -48,6 +48,7 @@ fi
 #  pure prompt with time
 export PURE_PROMPT_SYMBOL=">"
 PROMPT='%F{white}%* '$PROMPT
+zstyle :prompt:pure:path color '#10a5f5'
 
 # Prevent duplicate defined when use tmux
 if [ -n "$(which anyenv)" -a "$(which anyenv)" != 'anyenv not found' ]; then
